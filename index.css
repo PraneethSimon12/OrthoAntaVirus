@@ -1,0 +1,105 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: #012A4A;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.top-bar img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.site-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Secondary Navigation */
+.secondary-nav {
+    background-color: #013A63;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+}
+
+/* Search Bar */
+.search-container {
+    margin: 20px auto;
+    max-width: 600px;
+    display: flex;
+    border: 2px solid #00B4A2; /* Teal */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.search-container select {
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: #012A4A;
+    color: white;
+}
+
+/* Flex Container for Cards */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 40px;
+}
+
+/* Individual Cards */
+.card {
+    background-color: #F0F0F0;
+    border-radius: 8px;
+    padding: 20px;
+    width: 30%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h3 {
+    color: #013A63; /* Midnight Blue */
+}
+
+/* About Us Section */
+.about-us {
+    margin: 40px;
+    text-align: center;
+}
+
+.about-us h2 {
+    color: #012A4A;
+}
+
+/* Footer */
+footer {
+    background-color: #012A4A;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
