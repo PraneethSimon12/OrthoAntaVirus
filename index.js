@@ -1,21 +1,34 @@
-// Switch content dynamically based on some interaction (if needed)
-function showContent(section) {
-    const content = document.querySelector('.content');
+// Function to switch between tabs
+function showTab(tabId) {
+    // Hide all tab content
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.style.display = 'none');
 
-    if (section === 'overview') {
-        content.innerHTML = `
-            <h2>Overview</h2>
-            <p>This section provides an overview of the OrthoAntavirus and its monitoring details.</p>
-        `;
-    } else if (section === 'why-monitor') {
-        content.innerHTML = `
-            <h2>Why Monitor OrthoAntavirus?</h2>
-            <p>Monitoring helps prevent outbreaks and ensures health interventions.</p>
-        `;
-    } else if (section === 'geo-map') {
-        content.innerHTML = `
-            <h2>Geo Location Map</h2>
-            <img src="map-placeholder.png" alt="Map" style="width:100%; max-width:600px;">
-        `;
+    // Remove 'active' class from all buttons
+    const buttons = document.querySelectorAll('.tab-button');
+    buttons.forEach(button => button.classList.remove('active'));
+
+    // Show the selected tab content
+    document.getElementById(tabId).style.display = 'block';
+
+    // Add 'active' class to the clicked button
+    event.target.classList.add('active');
+}
+
+// Show Overview by default on page load
+document.getElementById('overview').style.display = 'block';
+
+// Function to search protein based on input
+function searchProtein() {
+    const protein = document.getElementById('protein-input').value.trim().toLowerCase();
+
+    if (protein === 'nucleocapsid protein') {
+        alert('Searching for Nucleocapsid Protein details...');
+        // Logic to show content or navigate can go here
+    } else if (protein === 'glycoprotein') {
+        alert('Searching for Glycoprotein details...');
+        // Logic to show content or navigate can go here
+    } else {
+        alert('Please enter a valid protein name from the options.');
     }
 }

@@ -29,51 +29,111 @@
 
     <!-- Search Bar -->
     <div class="search-container">
-        <input type="text" placeholder="Select Protein">
-        <select>
-            <option value="nucleocapsid">Nucleocapsid Protein</option>
-            <option value="glycoprotein">Glycoprotein</option>
-        </select>
+        <input 
+            type="text" 
+            id="protein-input" 
+            placeholder="Search for Nucleocapsid Protein or Glycoprotein" 
+            list="protein-options"
+        />
+        <datalist id="protein-options">
+            <option value="Nucleocapsid Protein"></option>
+            <option value="Glycoprotein"></option>
+        </datalist>
+        <button onclick="searchProtein()">Search</button>
     </div>
 
-    <!-- Flex Container for Overview, Why Monitor, and Geo Map -->
-    <div class="flex-container">
-        <!-- Overview Section -->
-        <div class="card">
-            <h3>Overview</h3>
-            <p>This section provides an overview of the OrthoAntavirus and its monitoring details.</p>
-        </div>
 
-        <!-- Why Monitor Section -->
-        <div class="card">
-            <h3>Why Monitor OrthoAntavirus?</h3>
-            <p>Monitoring the virus helps prevent outbreaks by tracking its spread and ensuring timely health interventions.</p>
-        </div>
-
-        <!-- Geo Location Map Section -->
-        <div class="card">
-            <h3>Geo Location Map</h3>
-            <p>Regions affected by OrthoAntavirus:</p>
-            <img src="map-placeholder.png" alt="Map" style="width:100%; max-width:400px;">
-        </div>
+    <!-- Navigation Tabs -->
+    <div class="tab-container">
+        <button class="tab-button active" onclick="showTab('overview')">Overview</button>
+        <button class="tab-button" onclick="showTab('why-monitor')">Why Monitor</button>
+        <button class="tab-button" onclick="showTab('geo-map')">Geo Location Map</button>
     </div>
 
-    <!-- About Us Section -->
+    <!-- Tab Content -->
+    <div class="tab-content" id="overview">
+        <h3>Overview</h3>
+        <p>This section provides an overview of the OrthoAntavirus and its monitoring details.</p>
+    </div>
+
+    <div class="tab-content" id="why-monitor" style="display: none;">
+        <h3>Why Monitor OrthoAntavirus?</h3>
+        <p>Monitoring helps prevent outbreaks by tracking its spread and ensuring timely health interventions.</p>
+    </div>
+
+    <div class="tab-content" id="geo-map" style="display: none;">
+        <h3>Geo Location Map</h3>
+        <p>Regions affected by OrthoAntavirus:</p>
+        <img src="map-placeholder.png" alt="Map" style="width:100%; max-width:400px;">
+    </div>
+
+
+   <!-- About Us Section -->
     <div class="about-us">
-        <h2>About Us</h2>
-        <p>
-            OrthoAntavirus is dedicated to providing up-to-date information about the spread of the virus,
-            ensuring transparency and facilitating quick health interventions.
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente, pariatur labore dolor blanditiis
-            eos laudantium aspernatur necessitatibus tenetur praesentium. Cupiditate iste tempore est neque, exercitationem a
-            lias consectetur libero non sit.
-        </p>
+        <div class="about-us-container">
+            <img src="about-us-image.jpg" alt="About Us" class="about-us-image">
+            <div class="about-us-text">
+                <h2>About Us</h2>
+                <p>
+                    OrthoAntavirus is committed to providing up-to-date information about the virus,
+                    ensuring transparency and facilitating quick health interventions. Our mission is to empower
+                    communities and healthcare professionals with the tools needed to stay protected.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, pariatur labore dolor
+                    blanditiis eos laudantium aspernatur. Cupiditate iste tempore est neque, exercitationem
+                    alias libero non sit.
+                </p>
+            </div>
+        </div>
     </div>
 
+
+<!-- Footer -->
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 OrthoAntavirus. All Rights Reserved.</p>
-    </footer>
+<footer>
+    <!-- Social Media Links -->
+    <div class="footer-social">
+        <h4>FOLLOW NCBI</h4>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fas fa-rss"></i></a>
+        </div>
+    </div>
+
+    <!-- Links Section -->
+    <div class="footer-links">
+        <div>
+            <a href="#">Connect with NLM</a>
+            <div class="social-icons-inline">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div>
+            <a href="#">National Library of Medicine<br>8600 Rockville Pike<br>Bethesda, MD 20894</>
+        </div>
+        <div>
+            <a href="#">Web Policies</a><br>
+            <a href="#">FOIA</a><br>
+            <a href="#">HHS Vulnerability Disclosure</a>
+        </div>
+        <div>
+            <a href="#">Help</a><br>
+            <a href="#">Accessibility</a><br>
+            <a href="#">Careers</a>
+        </div>
+        <div>
+            <a href="#">NLM</a> | <a href="#">NIH</a> | <a href="#">HHS</a> | <a href="#">USA.gov</a>
+        </div>
+    </div>
+</footer>
+
+
 
     <script src="index.js"></script>
 
