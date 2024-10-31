@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Load data from Excel file into the database'
 
     def handle(self, *args, **kwargs):
-        workbook = openpyxl.load_workbook('data.xlsx')
+        workbook = openpyxl.load_workbook('Bittu.xlsx')
         sheet = workbook.active
 
         for row in sheet.iter_rows(min_row=2, values_only=True):  # Skip the header
