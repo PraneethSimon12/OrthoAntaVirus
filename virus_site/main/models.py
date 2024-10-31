@@ -13,4 +13,4 @@ class VirusRecord(models.Model):
     organization = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.organism_name
+        return f"{self.accession} - {self.organism_name}"
