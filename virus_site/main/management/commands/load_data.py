@@ -1,22 +1,28 @@
-import openpyxl
+import os
+import pandas as pd
 from django.core.management.base import BaseCommand
 from main.models import VirusRecord
 
 class Command(BaseCommand):
-    help = 'Load data from Excel file into the database'
+    help = 'Import Excel files into the VirusRecord model'
 
     def handle(self, *args, **kwargs):
-        workbook = openpyxl.load_workbook('Bittu.xlsx')
-        sheet = workbook.active
+        folder_path = '/path/to/your/excel/files'  # Update with the path to your Excel files
 
-        for row in sheet.iter_rows(min_row=2, values_only=True):  # Skip the header
-            VirusRecord.objects.create(
-                accession=row[0],
-                organism_name=row[1],
-                genbank_refseq=row[2],
-                assembly=row[3],
-                submitter=row[4],
-                organization=row[5]
-            )
+        for file_name in os.listdir(folder_path):
+            if file_name.endswith('.xlsx') or file_name.endswith('.xls'):
+                file_path = os.path.join(folder_path, file_name)
+                df = pd.read_excel(file_path)
 
-        self.stdout.write(self.style.SUCCESS('Data loaded successfully'))
+                for _, row in df.iterrows():
+                    VirusRecord.objects.create(
+                        accession=row['Accession'],
+                        organism_name=row['Organism Name'],
+                        genbank_refseq=row['GenBank/RefSeq'],
+                        assembly=row['Assembly'],
+                        submitter=row['Submitter'],
+                        organization=row['Organization']
+                    )
+                self.stdout.write(f'Imported {file_name}')
+
+        self.stdout.write('All files imported successfully.')
