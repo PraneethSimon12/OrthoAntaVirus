@@ -2,8 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
-
 class VirusRecord(models.Model):
     accession = models.CharField(max_length=50)
     organism_name = models.CharField(max_length=100)
