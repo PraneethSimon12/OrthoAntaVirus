@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NCBI Clone</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .filter-input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>NCBI Virus Data</h1>
+    
+    <!-- Filter inputs -->
+    <div>
+        <input type="text" id="accessionFilter" class="filter-input" placeholder="Filter by Accession">
+        <input type="text" id="organismFilter" class="filter-input" placeholder="Filter by Organism Name">
+        <input type="text" id="genbankFilter" class="filter-input" placeholder="Filter by GenBank/RefSeq">
+        <input type="text" id="assemblyFilter" class="filter-input" placeholder="Filter by Assembly">
+        <input type="text" id="submitterFilter" class="filter-input" placeholder="Filter by Submitter">
+        <input type="text" id="organizationFilter" class="filter-input" placeholder="Filter by Organization">
+    </div>
+    
+    <!-- Table to display data -->
+    <table>
+        <thead>
+            <tr>
+                <th>Accession</th>
+                <th>Organism Name</th>
+                <th>GenBank/RefSeq</th>
+                <th>Assembly</th>
+                <th>Submitter</th>
+                <th>Organization</th>
+            </tr>
+        </thead>
+        <tbody id="virusTableBody">
+            {% for virus in viruses %}
+            <tr>
+                <td>{{ virus.accession }}</td>
+                <td>{{ virus.organism_name }}</td>
+                <td>{{ virus.genbank_refseq }}</td>
+                <td>{{ virus.assembly }}</td>
+                <td>{{ virus.submitter }}</td>
+                <td>{{ virus.organization }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- JavaScript for filtering -->
+    <script>
+        // JavaScript function to filter the table
+        document.addEventListener("DOMContentLoaded", function() {
+            const filterFields = {
+                accession: document.getElementById("accessionFilter"),
+                organism: document.getElementById("organismFilter"),
+                genbank: document.getElementById("genbankFilter"),
+                assembly: document.getElementById("assemblyFilter"),
+                submitter: document.getElementById("submitterFilter"),
+                organization: document.getElementById("organizationFilter")
+            };
+
+            const tableRows = Array.from(document.querySelectorAll("#virusTableBody tr"));
+
+            // Attach input event listener to each filter field
+            Object.keys(filterFields).forEach(key => {
+                filterFields[key].addEventListener("input", filterTable);
+            });
+
+            function filterTable() {
+                const filters = {
+                    accession: filterFields.accession.value.toLowerCase(),
+                    organism: filterFields.organism.value.toLowerCase(),
+                    genbank: filterFields.genbank.value.toLowerCase(),
+                    assembly: filterFields.assembly.value.toLowerCase(),
+                    submitter: filterFields.submitter.value.toLowerCase(),
+                    organization: filterFields.organization.value.toLowerCase()
+                };
+
+                tableRows.forEach(row => {
+                    const cells = row.querySelectorAll("td");
+                    const rowData = {
+                        accession: cells[0].textContent.toLowerCase(),
+                        organism: cells[1].textContent.toLowerCase(),
+                        genbank: cells[2].textContent.toLowerCase(),
+                        assembly: cells[3].textContent.toLowerCase(),
+                        submitter: cells[4].textContent.toLowerCase(),
+                        organization: cells[5].textContent.toLowerCase()
+                    };
+
+                    // Check if the row should be displayed based on filter criteria
+                    const matches = Object.keys(filters).every(key => {
+                        return rowData[key].includes(filters[key]);
+                    });
+
+                    row.style.display = matches ? "" : "none";
+                });
+            }
+        });
+    </script>
+</body>
+</html>

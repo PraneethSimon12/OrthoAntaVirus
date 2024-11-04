@@ -6,5 +6,7 @@ from .models import VirusRecord
 
 def virus_list(request):
     viruses = VirusRecord.objects.all()
-    return render(request, 'ncbi/virus_list.html', {'viruses': viruses})
+    return render(request, 'main/virus_list.html', {'viruses': viruses})
 
+def index(request):
+    return render(request, 'main/index.html') 

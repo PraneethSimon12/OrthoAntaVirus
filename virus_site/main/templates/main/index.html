@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrthoAntavirus Dashboard</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div>
+            <img src="{% static 'logo.png' %}" alt="Logo">
+            <span class="site-title">OrthoAntavirus</span>
+        </div>
+        <div>
+            <a href="#">WHO Global 🌐</a>
+            <a href="#">Language 🗣️</a>
+            <a href="#">Show Navigation ☰</a>
+        </div>
+    </div>
+
+    <!-- Secondary Navigation -->
+    <div class="secondary-nav">
+        <div>OrthoAntavirus Dashboard</div>
+        <div>Tracking Health. Protecting Lives.</div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input 
+            type="text" 
+            id="protein-input" 
+            placeholder="Search for Nucleocapsid Protein or Glycoprotein" 
+            list="protein-options"
+        />
+        <datalist id="protein-options">
+            <option value="Nucleocapsid Protein"></option>
+            <option value="Glycoprotein"></option>
+        </datalist>
+        <button onclick="searchProtein()">Search</button>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-container">
+        <button class="tab-button active" onclick="showTab('overview')">Overview</button>
+        <button class="tab-button" onclick="showTab('why-monitor')">Why Monitor</button>
+        <button class="tab-button" onclick="showTab('geo-map')">Geo Location Map</button>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="overview">
+        <h3>Overview</h3>
+        <p>This section provides an overview of the OrthoAntavirus and its monitoring details.</p>
+    </div>
+
+    <div class="tab-content" id="why-monitor" style="display: none;">
+        <h3>Why Monitor OrthoAntavirus?</h3>
+        <p>Monitoring helps prevent outbreaks by tracking its spread and ensuring timely health interventions.</p>
+    </div>
+
+    <div class="tab-content" id="geo-map" style="display: none;">
+        <h3>Geo Location Map</h3>
+        <p>Regions affected by OrthoAntavirus:</p>
+        <img src="{% static 'map-placeholder.png' %}" alt="Map" style="width:100%; max-width:400px;">
+    </div>
+
+    <!-- Table to display data -->
+    <div class="table-container">
+        <h3>Virus Records</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Accession</th>
+                    <th>Organism Name</th>
+                    <th>GenBank/RefSeq</th>
+                    <th>Assembly</th>
+                    <th>Submitter</th>
+                    <th>Organization</th>
+                </tr>
+            </thead>
+            <tbody id="virusTableBody">
+                {% for virus in viruses %}
+                <tr>
+                    <td>{{ virus.accession }}</td>
+                    <td>{{ virus.organism_name }}</td>
+                    <td>{{ virus.genbank_refseq }}</td>
+                    <td>{{ virus.assembly }}</td>
+                    <td>{{ virus.submitter }}</td>
+                    <td>{{ virus.organization }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No virus records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="about-us">
+        <div class="about-us-container">
+            <img src="{% static 'about-us-image.jpg' %}" alt="About Us" class="about-us-image">
+            <div class="about-us-text">
+                <h2>About Us</h2>
+                <p>
+                    OrthoAntavirus is committed to providing up-to-date information about the virus,
+                    ensuring transparency and facilitating quick health interventions. Our mission is to empower
+                    communities and healthcare professionals with the tools needed to stay protected.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, pariatur labore dolor
+                    blanditiis eos laudantium aspernatur. Cupiditate iste tempore est neque, exercitationem
+                    alias libero non sit.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Social Media Links -->
+        <div class="footer-social">
+            <h4>FOLLOW NCBI</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-rss"></i></a>
+            </div>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div>
+                <a href="#">Connect with NLM</a>
+                <div class="social-icons-inline">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <a href="#">National Library of Medicine<br>8600 Rockville Pike<br>Bethesda, MD 20894</a>
+            </div>
+            <div>
+                <a href="#">Web Policies</a><br>
+                <a href="#">FOIA</a><br>
+                <a href="#">HHS Vulnerability Disclosure</a>
+            </div>
+            <div>
+                <a href="#">Help</a><br>
+                <a href="#">Accessibility</a><br>
+                <a href="#">Careers</a>
+            </div>
+            <div>
+                <a href="#">NLM</a> | <a href="#">NIH</a> | <a href="#">HHS</a> | <a href="#">USA.gov</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'index.js' %}"></script>
+</body>
+</html>
