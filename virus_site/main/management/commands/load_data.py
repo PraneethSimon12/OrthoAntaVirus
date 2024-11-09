@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Import Excel files into the VirusRecord model'
 
     def handle(self, *args, **kwargs):
-        folder_path = 'C:\OrthoAntaVirus\Database'  # Update with the path to your Excel files
+        folder_path = 'C:\OrthoAntaVirus\Database\nucleoprotein hantavirus.xlsx'  # testing with one the xl fil nucle
 
         for file_name in os.listdir(folder_path):
             if file_name.endswith('.xlsx') or file_name.endswith('.xls'):
