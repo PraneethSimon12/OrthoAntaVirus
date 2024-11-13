@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orthohantavirus</title>
+    <link rel="stylesheet" href="page2.css">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div>
+        <img src="logo.png" alt="Logo">
+        <span class="site-title">Orthohantavirus</span>
+    </div>
+    <div>
+        <a href="#">WHO Global 🌐</a>
+        <a href="#">Language 🗣️</a>
+        <a href="#">Show Navigation ☰</a>
+    </div>
+</div>
+<!-- Secondary Navigation -->
+<div class="secondary-nav">
+    <div>Orthohantavirus</div>
+</div>
+
+
+<!-- Main Container for Sidebar and Content -->
+<div class="main-container">
+    <!-- Filters Sidebar -->
+    <div class="filter-sidebar">
+        <h3>Filters</h3>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Accession No.</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter accession(s)">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Virus Name</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter virus name">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">VRL</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter VRL">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Species Name</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter species name">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Sequence Length</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter sequence length">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Geographic Location</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter geographic location">
+            </div>
+        </div>
+        
+        <!-- Host Filter with Radio Buttons -->
+        <div class="filter-item">
+            <button class="filter-toggle">Host</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Search host..." class="filter-search">
+                <div class="filter-options">
+                    <label>
+                        <input type="radio" name="host" value="humans"> Humans
+                    </label>
+                    <label>
+                        <input type="radio" name="host" value="rodents"> Rodents
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Collection Date Filter -->
+        <div class="filter-item">
+            <button class="filter-toggle">Collection Date</button>
+            <div class="filter-content">
+                <input type="date" class="filter-date">
+            </div>
+        </div>
+        
+        <!-- Add more filters as needed -->
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-area">
+        <!-- Your main content goes here -->
+        <table id="dataTable">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Accession No.</th>
+                <th>Organism Name</th>
+                <th>VRL</th>
+                <th>Species</th>
+                <th>Length</th>
+                <th>Geo Location</th>
+                <th>Host</th>
+                <th>Collection Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data rows will be inserted here by JavaScript -->
+            </tbody>
+          </table>
+    </div>
+</div>
+
+
+
+
+
+<!-- Footer -->
+<footer>
+    <!-- Social Media Links -->
+    <div class="footer-social">
+        <h4>FOLLOW THAPAR</h4>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fas fa-rss"></i></a>
+        </div>
+    </div>
+
+    <!-- Links Section -->
+    <div class="footer-links">
+        <div>
+            <a href="#">Connect with NLM</a>
+            <div class="social-icons-inline">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div>
+            <a href="#">National Library of Medicine<br>8600 Rockville Pike<br>Bethesda, MD 20894</>
+        </div>
+        <div>
+            <a href="#">Web Policies</a><br>
+            <a href="#">FOIA</a><br>
+            <a href="#">HHS Vulnerability Disclosure</a>
+        </div>
+        <div>
+            <a href="#">Help</a><br>
+            <a href="#">Accessibility</a><br>
+            <a href="#">Careers</a>
+        </div>
+        <div>
+            <a href="#">NLM</a> | <a href="#">NIH</a> | <a href="#">HHS</a> | <a href="#">USA.gov</a>
+        </div>
+    </div>
+</footer>
+
+<script src="page2.js"></script>
+
+</body>
+</html>

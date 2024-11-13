@@ -40,7 +40,6 @@
 }
 
 
-
 /* Secondary Navigation */
 .secondary-nav {
     background-color: #013A63;
@@ -50,126 +49,114 @@
     font-size: 22px;
 }
 
-/* Search Bar */
-.search-container {
-    margin: 20px auto;
-    max-width: 600px;
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Main Container for Sidebar and Content */
+.main-container {
     display: flex;
-    border: 2px solid #00B4A2; /* Teal */
-    border-radius: 5px;
-    overflow: hidden;
+    align-items: flex-start;
 }
 
-.search-container input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-}
-
-.search-container button {
-    padding: 10px 20px;
-    background-color: #012A4A;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.search-container button:hover {
-    background-color: #013A63;
-}
-
-
-/* Tab Container */
-.tab-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    background-color: #012A4A;
-    padding: 10px;
-    border-radius: 8px;
-}
-
-/* Tab Buttons */
-.tab-button {
-    background-color: #013A63;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.tab-button.active {
-    background-color: #00B4A2;
-}
-
-.tab-button:hover {
-    background-color: #00B4A2;
-}
-
-/* Tab Content */
-.tab-content {
-    margin: 30px;
+/* Sidebar Filter */
+.filter-sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #F0F0F0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
+    position: sticky;
+    top: 100px; /* Adjust based on your layout */
+    max-height: calc(100vh - 100px); /* Prevents overlap with footer */
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.filter-sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.filter-item {
+    margin-bottom: 10px;
+}
+
+.filter-toggle {
+    width: 100%;
+    background-color: #e2e6ea;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.filter-content {
     display: none;
+    padding: 10px 0;
 }
 
-.tab-content h3 {
-    color: #013A63;
+.filter-content input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-
-/* About Us Section */
-.about-us {
-    background-color: #E3F2FD; /* Light blue background */
-    padding: 40px;
-    margin: 40px auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1500px;
+/* Optional: Expand/Collapse Button Style */
+.filter-toggle:after {
+    content: '+';
+    float: right;
+    font-size: 18px;
 }
 
-/* Flexbox for Content Alignment */
-.about-us-container {
+.filter-toggle.expanded:after {
+    content: '-';
+}
+
+/* Styling for Filter Options (Radio Buttons) */
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.filter-options label {
+    font-size: 14px;
     display: flex;
     align-items: center;
-    gap: 20px;
-    flex-wrap: wrap; /* For responsiveness */
+    gap: 124px;
 }
 
-/* Image Styling */
-.about-us-image {
-    width: 150px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.filter-options input[type="radio"] {
+    margin: 0;
+    transform: scale(1.2);
 }
 
-/* Text Styling */
-.about-us-text {
+/* Date Input Style */
+.filter-date {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Content Area Styling */
+.content-area {
     flex: 1;
-    text-align: left;
+    padding: 20px;
+    min-height: 100vh; /* Ensures it fills the height */
 }
 
-.about-us h2 {
-    color: #012A4A;
-    margin-bottom: 10px;
-}
 
-.about-us p {
-    color: #333;
-    line-height: 1.6;
-    margin-bottom: 10px;
-}
+
 
 
 /* Footer */
@@ -242,3 +229,15 @@ footer {
     text-decoration: none;
 }
 
+table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
