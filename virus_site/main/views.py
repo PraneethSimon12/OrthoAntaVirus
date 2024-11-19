@@ -10,3 +10,6 @@ def virus_list(request):
 
 def index(request):
     return render(request, 'main/index.html') 
+
+def page2_view(request):
+    return render(request, 'main/page2.html')
