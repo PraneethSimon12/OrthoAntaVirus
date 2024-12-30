@@ -1,4 +1,4 @@
-document.querySelectorAll('.filter-toggle').forEach(button => {
+ document.querySelectorAll('.filter-toggle').forEach(button => {
     button.addEventListener('click', () => {
         const content = button.nextElementSibling;
         content.style.display = content.style.display === 'block' ? 'none' : 'block';
@@ -134,4 +134,59 @@ const data = [
     // Append the row to the table body
     tableBody.appendChild(tr);
   });
-  
+   
+
+   {% comment %} document.addEventListener("DOMContentLoaded", () => {
+    // Toggle filter visibility
+    document.querySelectorAll('.filter-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            button.classList.toggle('expanded');
+        });
+    });
+
+    // Table data
+    const data = [
+        {
+            sNo: "1",
+            accessionNo: "YP_010839200RefSeq",
+            organismName: "Orthohantavirus puumalaense",
+            vrl: "6/5/2023",
+            species: "Orthohantavirus puumalaense",
+            length: "433",
+            geoLocation: "Australia",
+            host: "Peromyscus maniculatus",
+            collectionDate: "3/7/2017"
+        },
+        {
+            sNo: "2",
+            accessionNo: "YP_010839201RefSeq",
+            organismName: "Orthohantavirus sinnombreense",
+            vrl: "6/5/2023",
+            species: "Orthohantavirus sinnombreense",
+            length: "428",
+            geoLocation: "United Kingdom",
+            host: "Pteropus alecto",
+            collectionDate: "2014"
+        },
+        // More data...
+    ];
+
+    const tableBody = document.querySelector("#dataTable tbody");
+
+    // Populate the table
+    data.forEach(row => {
+        const tr = document.createElement("tr");
+
+        // Create and append cells to the row
+        for (const key in row) {
+            const td = document.createElement("td");
+            td.textContent = row[key];
+            tr.appendChild(td);
+        }
+
+        // Append the row to the table body
+        tableBody.appendChild(tr);
+    });
+}); {% endcomment %}

@@ -4,11 +4,11 @@ from django.shortcuts import render
 
 from .models import VirusRecord
 
-def virus_list(request):
-    viruses = VirusRecord.objects.all()
-    return render(request, 'main/virus_list.html', {'viruses': viruses})
+# def virus_list(request):
+#     viruses = VirusRecord.objects.all()
+#     return render(request, 'main/virus_list.html', {'viruses': viruses})
 
-def index(request):
+def index_view(request):
     return render(request, 'main/index.html') 
 
 def page2_view(request):

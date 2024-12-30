@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orthohantavirus</title>
-    <link rel="stylesheet" href="index.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
 </head>
 <body>
 
     <!-- Top Bar -->
     <div class="top-bar">
         <div>
-            <img src="logo.png" alt="Logo">
+            <img src="{% static 'logo.png' %}" alt="Logo">
             <span class="site-title">Orthohantavirus</span>
         </div>
         <div>
@@ -63,14 +64,14 @@
     <div class="tab-content" id="geo-map" style="display: none;">
         <h3>Geo Location Map</h3>
         <p>Regions affected by OrthoAntavirus:</p>
-        <img src="map-placeholder.png" alt="Map" style="width:100%; max-width:400px;">
+        <img src="{% static 'map-placeholder.png' %}" alt="Map" style="width:100%; max-width:400px;">
     </div>
 
 
    <!-- About Us Section -->
     <div class="about-us">
         <div class="about-us-container">
-            <img src="about-us-image.jpg" alt="About Us" class="about-us-image">
+            <img src="{% static 'about-us-image.jpg' %}" alt="About Us" class="about-us-image">
             <div class="about-us-text">
                 <h2>About Us</h2>
                 <p>
@@ -113,7 +114,7 @@
             </div>
         </div>
         <div>
-            <a href="#">National Library of Medicine<br>8600 Rockville Pike<br>Bethesda, MD 20894</>
+            <a href="#">National Library of Medicine<br>8600 Rockville Pike<br>Bethesda, MD 20894</a>
         </div>
         <div>
             <a href="#">Web Policies</a><br>
@@ -131,10 +132,7 @@
     </div>
 </footer>
 
-
-
-<script src="index.js"></script>
+<script src="{% static 'index.js' %}"></script>
 
 </body>
 </html>
-
