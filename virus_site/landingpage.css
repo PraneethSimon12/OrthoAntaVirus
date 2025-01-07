@@ -1,0 +1,114 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background: #f3f3f3;
+    padding: 20px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar h1 {
+    font-size: 1.5rem;
+    color: #800000;
+}
+
+.top-bar p {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.top-bar a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 10px 0;
+    background: #cfe3ff;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px;
+}
+
+.filter-section {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.filter-section h2 {
+    margin-bottom: 10px;
+}
+
+.filter-options label {
+    margin-right: 15px;
+}
+
+.filter-inputs,
+.advanced-filters {
+    margin-top: 15px;
+}
+
+.filter-inputs label,
+.advanced-filters label {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.advanced-filters input,
+.advanced-filters select {
+    margin-right: 10px;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.footer-sections {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-sections div {
+    margin-right: 20px;
+}
+
+.footer-sections ul {
+    list-style: none;
+}
+
+.footer-sections ul li a {
+    text-decoration: none;
+    color: #ddd;
+}
