@@ -5,7 +5,252 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orthohantavirus</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'page2.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'page2.css' %}"> -->
+     <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: #043255;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 22px 20px;
+}
+
+.top-bar img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.site-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Style for Top Right Links */
+.top-bar a {
+    color: #00B4A2; /* Lighter color for better visibility */
+    margin-left: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.top-bar a:hover {
+    color: #00FFC8; /* Hover color for added effect */
+}
+
+
+/* Secondary Navigation */
+.secondary-nav {
+    background-color: #013A63;
+    color: white;
+    text-align: center;
+    padding: 28px;
+    font-size: 22px;
+}
+
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Main Container for Sidebar and Content */
+.main-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Sidebar Filter */
+.filter-sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    position: sticky;
+    top: 100px; /* Adjust based on your layout */
+    max-height: calc(100vh - 100px); /* Prevents overlap with footer */
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.filter-sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.filter-item {
+    margin-bottom: 10px;
+}
+
+.filter-toggle {
+    width: 100%;
+    background-color: #e2e6ea;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.filter-content {
+    display: none;
+    padding: 10px 0;
+}
+
+.filter-content input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Optional: Expand/Collapse Button Style */
+.filter-toggle:after {
+    content: '+';
+    float: right;
+    font-size: 18px;
+}
+
+.filter-toggle.expanded:after {
+    content: '-';
+}
+
+/* Styling for Filter Options (Radio Buttons) */
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.filter-options label {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 124px;
+}
+
+.filter-options input[type="radio"] {
+    margin: 0;
+    transform: scale(1.2);
+}
+
+/* Date Input Style */
+.filter-date {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Content Area Styling */
+.content-area {
+    flex: 1;
+    padding: 20px;
+    min-height: 100vh; /* Ensures it fills the height */
+}
+
+
+
+
+
+/* Footer */
+footer {
+    background-color: #1A4C8B;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.footer-social {
+    background-color: #5C84C2;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer-social h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.footer-social .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-social .social-icons a {
+    color: gray;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.footer-links {
+    background-color: #1A4C8B;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    font-size: 14px;
+}
+
+.footer-links div {
+    text-align: center;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-links .social-icons-inline {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.footer-links .social-icons-inline a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+     </style>
 </head>
 <body>
     <!-- <script src="{% static 'page2.js' %}"></script> -->
