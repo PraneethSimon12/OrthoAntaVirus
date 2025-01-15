@@ -4,12 +4,13 @@ from django.shortcuts import render
 
 from .models import VirusRecord
 
-# def virus_list(request):
-#     viruses = VirusRecord.objects.all()
-#     return render(request, 'main/virus_list.html', {'viruses': viruses})
+
 
 def index_view(request):
     return render(request, 'main/index.html') 
 
 def page2_view(request):
     return render(request, 'main/page2.html')
+
+def landing_page(request):
+    return render(request, 'main/landingpage.html')

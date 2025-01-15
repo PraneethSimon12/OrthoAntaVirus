@@ -10,5 +10,5 @@ from . import views
 urlpatterns = [
     path('', views.index_view, name='index'),  # Homepage
     path('page2/', views.page2_view, name='page2'),  # Page 2
-    #path('about/', views.about_view, name='about'),  # About page
+    path('land/', views.landing_page, name='landing_page'),  # landing_page page
 ]
