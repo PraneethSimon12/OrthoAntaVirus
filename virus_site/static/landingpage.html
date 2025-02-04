@@ -4,25 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OrthoHantaVirus Resource</title>
-    <link rel="stylesheet" href="landingpage.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <header>
         <div class="top-bar">
             <h1> Orthohantavirus Resource</h1>
             <p>Information, Search and Analysis</p>
-            <a href="#">Sign in to NCBI</a>
         </div>
         <nav>
             <ul>
                 <li><a href="#">Overview</a></li>
                 <li><a href="#">Database</a></li>
-                <li><a href="#">Genome Set</a></li>
-                <li><a href="#">BLAST</a></li>
-                <li><a href="#">Annotation</a></li>
-                <li><a href="#">Submission</a></li>
-                <li><a href="#">FTP</a></li>
-                <li><a href="#">Virus Resources</a></li>
             </ul>
         </nav>
     </header>
@@ -31,12 +24,7 @@
         <section class="filter-section">
             <h2>Get sequences by accession</h2>
             <label for="accession-input">Enter a list of sequence accessions:</label>
-            <input type="text" id="accession-input" placeholder="Enter accession numbers">
-            <div>
-                <label for="upload-file">Or upload a file:</label>
-                <input type="file" id="upload-file">
-            </div>
-            <button>Add Query</button>
+            <input type="text" id="accession-input" placeholder="Ex: NC_077666">
             <button>Show Results</button>
         </section>
 
@@ -47,10 +35,6 @@
                 <label>
                     <input type="radio" name="sequence-type" value="protein" checked>
                     Protein
-                </label>
-                <label>
-                    <input type="radio" name="sequence-type" value="protein-coding-region">
-                    Protein coding region
                 </label>
                 <label>
                     <input type="radio" name="sequence-type" value="nucleotide">
@@ -70,11 +54,64 @@
                 <h3>Define search set:</h3>
                 <label for="host">Host:</label>
                 <select id="host">
-                    <option value="any">Any</option>
-                    <option value="avian">Avian</option>
-                    <option value="bat">Bat</option>
-                    <option value="blow-fly">Blow Fly</option>
-                </select>
+                        <option value="all">All</option>
+                        <option value="argentina">Argentina</option>
+                        <option value="australia">Australia</option>
+                        <option value="austria">Austria</option>
+                        <option value="belgium">Belgium</option>
+                        <option value="benin">Benin</option>
+                        <option value="bolivia">Bolivia</option>
+                        <option value="brazil">Brazil</option>
+                        <option value="canada">Canada</option>
+                        <option value="chile">Chile</option>
+                        <option value="china">China</option>
+                        <option value="colombia">Colombia</option>
+                        <option value="croatia">Croatia</option>
+                        <option value="czech-republic">Czech Republic</option>
+                        <option value="denmark">Denmark</option>
+                        <option value="ethiopia">Ethiopia</option>
+                        <option value="finland">Finland</option>
+                        <option value="france">France</option>
+                        <option value="french-guiana">French Guiana</option>
+                        <option value="germany">Germany</option>
+                        <option value="greece">Greece</option>
+                        <option value="guinea">Guinea</option>
+                        <option value="honduras">Honduras</option>
+                        <option value="hungary">Hungary</option>
+                        <option value="indonesia">Indonesia</option>
+                        <option value="italy">Italy</option>
+                        <option value="japan">Japan</option>
+                        <option value="kazakhstan">Kazakhstan</option>
+                        <option value="latvia">Latvia</option>
+                        <option value="lithuania">Lithuania</option>
+                        <option value="madagascar">Madagascar</option>
+                        <option value="malaysia">Malaysia</option>
+                        <option value="mexico">Mexico</option>
+                        <option value="mongolia">Mongolia</option>
+                        <option value="netherlands">Netherlands</option>
+                        <option value="north-korea">North Korea</option>
+                        <option value="panama">Panama</option>
+                        <option value="paraguay">Paraguay</option>
+                        <option value="peru">Peru</option>
+                        <option value="poland">Poland</option>
+                        <option value="russia">Russia</option>
+                        <option value="singapore">Singapore</option>
+                        <option value="slovakia">Slovakia</option>
+                        <option value="slovenia">Slovenia</option>
+                        <option value="south-korea">South Korea</option>
+                        <option value="spain">Spain</option>
+                        <option value="sri-lanka">Sri Lanka</option>
+                        <option value="sweden">Sweden</option>
+                        <option value="switzerland">Switzerland</option>
+                        <option value="taiwan">Taiwan</option>
+                        <option value="thailand">Thailand</option>
+                        <option value="turkey">Turkey</option>
+                        <option value="united-kingdom">United Kingdom</option>
+                        <option value="usa">USA</option>
+                        <option value="venezuela">Venezuela</option>
+                        <option value="vietnam">Viet Nam</option>
+                        <option value="others">Others</option>
+                    </select>
                 <label for="region">Country/Region:</label>
                 <select id="region">
                     <option value="any">Any</option>
