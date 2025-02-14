@@ -3,65 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Excel File | Virus Database</title>
+    <title>Virus Database Records</title>
     <style>
         /* General Styling */
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
             background-color: #f9f9f9;
         }
 
-        h2 {
-            color: #043255;
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            font-size: 18px;
             margin-bottom: 15px;
         }
 
-        /* Navbar */
-        .navbar {
-            background-color: #043255;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .filter-item {
+            margin-bottom: 15px;
         }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
-
-        .navbar a:hover {
-            text-decoration: underline;
-        }
-
-        /* Upload Form */
-        .upload-form {
-            margin-bottom: 20px;
-        }
-
-        .upload-form input[type="file"] {
+        .filter-content input {
+            width: 100%;
             padding: 8px;
-            margin-right: 10px;
-        }
-
-        .upload-form button {
-            background-color: #007bff;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            cursor: pointer;
+            border: 1px solid #ccc;
             border-radius: 5px;
+            margin-top: 5px;
         }
 
-        .upload-form button:hover {
-            background-color: #0056b3;
+        /* Content Styling */
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-x: auto;
+            min-width: 800px;
         }
 
-        /* Table Styling */
         .table-container {
             overflow-x: auto;
             max-width: 100%;
@@ -69,11 +65,13 @@
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 1200px;
             background: white;
         }
 
@@ -91,133 +89,155 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-
-        /* Pagination Controls */
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .pagination a {
-            padding: 8px 12px;
-            margin: 0 5px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .pagination a:hover {
-            background-color: #0056b3;
-        }
-
-        .alert {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<div class="navbar">
-    <div>
-        <a href="/">Home</a>
-        <a href="/upload_excel/">Upload Data</a>
-        <a href="/virus_list/">View Database</a>
-        <a href="/page2/">Page 2</a>
-        <a href="/land/">Landing Page</a>
+<div class="main-container">
+    <!-- Filters Sidebar -->
+    <div class="sidebar">
+        <h3>Filters</h3>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Accession No.</button>
+            <div class="filter-content">
+                <input type="text" id="accessionFilter" placeholder="Enter accession(s)">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-toggle">Virus Name</button>
+            <div class="filter-content">
+                <input type="text" id="virusFilter" placeholder="Enter virus name">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-toggle">VRL</button>
+            <div class="filter-content">
+                <input type="text" id="vrlFilter" placeholder="Enter VRL">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-toggle">Species Name</button>
+            <div class="filter-content">
+                <input type="text" id="speciesFilter" placeholder="Enter species name">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-toggle">Sequence Length</button>
+            <div class="filter-content">
+                <input type="number" id="lengthFilter" placeholder="Enter length">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-toggle">Geographic Location</button>
+            <div class="filter-content">
+                <input type="text" id="geoFilter" placeholder="Enter location">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-toggle">Host</button>
+            <div class="filter-content">
+                <input type="text" id="hostFilter" placeholder="Enter host">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-toggle">Collection Date</button>
+            <div class="filter-content">
+                <input type="date" id="dateFilter">
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h2>Virus Database Records</h2>
+
+        <div class="table-container">
+            <table id="virusTable">
+                <thead>
+                    <tr>
+                        <th>Accession No</th>
+                        <th>Organism Name</th>
+                        <th>VRL</th>
+                        <th>Isolate</th>
+                        <th>Species</th>
+                        <th>Length</th>
+                        <th>Geo Location</th>
+                        <th>Host</th>
+                        <th>Collection Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.accession_no }}</td>
+                        <td>{{ record.organism_name }}</td>
+                        <td>{{ record.vrl }}</td>
+                        <td>{{ record.isolate }}</td>
+                        <td>{{ record.species }}</td>
+                        <td>{{ record.length }}</td>
+                        <td>{{ record.geo_location }}</td>
+                        <td>{{ record.host }}</td>
+                        <td>{{ record.collection_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<!-- Page Content -->
-<!-- <h2>Upload Excel File</h2>
+<!-- JavaScript for Filters -->
+<script>
+    function filterTable() {
+        let accession = document.getElementById("accessionFilter").value.toLowerCase();
+        let virus = document.getElementById("virusFilter").value.toLowerCase();
+        let vrl = document.getElementById("vrlFilter").value.toLowerCase();
+        let species = document.getElementById("speciesFilter").value.toLowerCase();
+        let length = document.getElementById("lengthFilter").value;
+        let geo = document.getElementById("geoFilter").value.toLowerCase();
+        let host = document.getElementById("hostFilter").value.toLowerCase();
+        let date = document.getElementById("dateFilter").value;
 
-<!-- Upload Form -->
-<!-- <form method="POST" enctype="multipart/form-data" class="upload-form">
-    {% csrf_token %}
-    <input type="file" name="excel_file" required>
-    <button type="submit">Upload</button>
-</form> --> 
+        document.querySelectorAll("#virusTable tbody tr").forEach(row => {
+            let cells = row.getElementsByTagName("td");
 
-<!-- Success/Error Messages -->
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
+            let matchesFilter = (
+                (!accession || cells[0].textContent.toLowerCase().includes(accession)) &&
+                (!virus || cells[1].textContent.toLowerCase().includes(virus)) &&
+                (!vrl || cells[2].textContent.toLowerCase().includes(vrl)) &&
+                (!species || cells[4].textContent.toLowerCase().includes(species)) &&
+                (!length || cells[5].textContent.includes(length)) &&
+                (!geo || cells[6].textContent.toLowerCase().includes(geo)) &&
+                (!host || cells[7].textContent.toLowerCase().includes(host)) &&
+                (!date || cells[8].textContent.includes(date))
+            );
 
-<!-- Display Uploaded Data -->
-<h2>Virus Database Records</h2>
+            row.style.display = matchesFilter ? "" : "none";
+        });
+    }
 
-{% if records %}
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Accession No</th>
-                    <th>Organism Name</th>
-                    <th>VRL</th>
-                    <th>Isolate</th>
-                    <th>Species</th>
-                    <th>Length</th>
-                    <th>Geo Location</th>
-                    <th>Host</th>
-                    <th>Collection Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for record in records %}
-                <tr>
-                    <td>{{ record.accession_no }}</td>
-                    <td>{{ record.organism_name }}</td>
-                    <td>{{ record.vrl }}</td>
-                    <td>{{ record.isolate }}</td>
-                    <td>{{ record.species }}</td>
-                    <td>{{ record.length }}</td>
-                    <td>{{ record.geo_location }}</td>
-                    <td>{{ record.host }}</td>
-                    <td>{{ record.collection_date }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    // Apply filtering on input change
+    document.querySelectorAll('.filter-content input').forEach(input => {
+        input.addEventListener('input', filterTable);
+    });
 
-    <!-- Pagination Controls -->
-    <div class="pagination">
-        {% if records.has_previous %}
-            <a href="?page=1">First</a>
-            <a href="?page={{ records.previous_page_number }}">Previous</a>
-        {% endif %}
-
-        <span>Page {{ records.number }} of {{ records.paginator.num_pages }}</span>
-
-        {% if records.has_next %}
-            <a href="?page={{ records.next_page_number }}">Next</a>
-            <a href="?page={{ records.paginator.num_pages }}">Last</a>
-        {% endif %}
-    </div>
-
-{% else %}
-    <p>No records found.</p>
-{% endif %}
+    // Expand/collapse filter sections
+    document.querySelectorAll('.filter-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            button.classList.toggle('expanded');
+        });
+    });
+</script>
 
 </body>
 </html>
-
-
-
