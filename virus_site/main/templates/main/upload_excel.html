@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Excel File | Virus Database</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            color: #043255;
+            margin-bottom: 15px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #043255;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Upload Form */
+        .upload-form {
+            margin-bottom: 20px;
+        }
+
+        .upload-form input[type="file"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        .upload-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .upload-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Table Styling */
+        .table-container {
+            overflow-x: auto;
+            max-width: 100%;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Pagination Controls */
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination a {
+            padding: 8px 12px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div>
+        <a href="/">Home</a>
+        <a href="/upload_excel/">Upload Data</a>
+        <a href="/virus_list/">View Database</a>
+        <a href="/page2/">Page 2</a>
+        <a href="/land/">Landing Page</a>
+    </div>
+</div>
+
+<!-- Page Content -->
+<h2>Upload Excel File</h2>
+
+<!-- Upload Form -->
+<form method="POST" enctype="multipart/form-data" class="upload-form">
+    {% csrf_token %}
+    <input type="file" name="excel_file" required>
+    <button type="submit">Upload</button>
+</form>
+
+<!-- Success/Error Messages -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Display Uploaded Data -->
+<h2>Virus Database Records</h2>
+
+{% if records %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Accession No</th>
+                    <th>Organism Name</th>
+                    <th>VRL</th>
+                    <th>Isolate</th>
+                    <th>Species</th>
+                    <th>Length</th>
+                    <th>Geo Location</th>
+                    <th>Host</th>
+                    <th>Collection Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.accession_no }}</td>
+                    <td>{{ record.organism_name }}</td>
+                    <td>{{ record.vrl }}</td>
+                    <td>{{ record.isolate }}</td>
+                    <td>{{ record.species }}</td>
+                    <td>{{ record.length }}</td>
+                    <td>{{ record.geo_location }}</td>
+                    <td>{{ record.host }}</td>
+                    <td>{{ record.collection_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        {% if records.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ records.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ records.number }} of {{ records.paginator.num_pages }}</span>
+
+        {% if records.has_next %}
+            <a href="?page={{ records.next_page_number }}">Next</a>
+            <a href="?page={{ records.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+
+{% else %}
+    <p>No records found.</p>
+{% endif %}
+
+</body>
+</html>
+
+
+

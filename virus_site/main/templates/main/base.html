@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virus Database</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'index' %}" class="brand">Orthohantavirus Database</a>
+            <ul class="nav-links">
+                <li><a href="{% url 'upload_excel' %}">Upload Data</a></li>
+                <li><a href="{% url 'virus_list' %}">View Database</a></li>
+                <li><a href="{% url 'page2' %}">Page 2</a></li>
+                <li><a href="{% url 'landing_page' %}">Landing Page</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content Area -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Virus Database | Powered by Django</p>
+    </footer>
+
+    <!-- Optional JS File -->
+    <script src="{% static 'scripts.js' %}"></script>
+
+</body>
+</html>

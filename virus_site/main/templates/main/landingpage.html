@@ -1,28 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OrthoHantaVirus Resource</title>
-    <link rel="stylesheet" href="landingpage.css">
+    <link rel="stylesheet" href="{% static 'landingpage.css' %}">
 </head>
 <body>
     <header>
         <div class="top-bar">
             <h1> Orthohantavirus Resource</h1>
             <p>Information, Search and Analysis</p>
-            <a href="#">Sign in to NCBI</a>
         </div>
         <nav>
             <ul>
-                <li><a href="#">Overview</a></li>
-                <li><a href="#">Database</a></li>
-                <li><a href="#">Genome Set</a></li>
-                <li><a href="#">BLAST</a></li>
-                <li><a href="#">Annotation</a></li>
-                <li><a href="#">Submission</a></li>
-                <li><a href="#">FTP</a></li>
-                <li><a href="#">Virus Resources</a></li>
+                <li><a href="">Overview</a></li>
+                <li><a href="">Database</a></li>
             </ul>
         </nav>
     </header>
@@ -30,64 +24,61 @@
         <!-- Section 1: Get Sequences by Accession -->
         <section class="filter-section">
             <h2>Get sequences by accession</h2>
-            <label for="accession-input">Enter a list of sequence accessions:</label>
-            <input type="text" id="accession-input" placeholder="Enter accession numbers">
-            <div>
-                <label for="upload-file">Or upload a file:</label>
-                <input type="file" id="upload-file">
-            </div>
-            <button>Add Query</button>
-            <button>Show Results</button>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <label for="accession-input">Enter a list of sequence accessions:</label>
+                <input type="text" name="accession" id="accession-input" placeholder="Ex: NC_077666">
+                <button type="submit">Show Results</button>
+            </form>
         </section>
 
         <!-- Section 2: Select Sequence Type -->
         <section class="filter-section">
             <h2>Select sequence type</h2>
-            <div class="filter-options">
-                <label>
-                    <input type="radio" name="sequence-type" value="protein" checked>
-                    Protein
-                </label>
-                <label>
-                    <input type="radio" name="sequence-type" value="protein-coding-region">
-                    Protein coding region
-                </label>
-                <label>
-                    <input type="radio" name="sequence-type" value="nucleotide">
-                    Nucleotide
-                </label>
-            </div>
-            <div class="filter-inputs">
-                <label for="keyword">Search for keyword:</label>
-                <input type="text" id="keyword" placeholder="Enter keyword">
-                <label for="strain-name">Search in:</label>
-                <select id="strain-name">
-                    <option value="strain-name">Strain Name</option>
-                    <option value="other-option">Other Option</option>
-                </select>
-            </div>
-            <div class="advanced-filters">
-                <h3>Define search set:</h3>
-                <label for="host">Host:</label>
-                <select id="host">
-                    <option value="any">Any</option>
-                    <option value="avian">Avian</option>
-                    <option value="bat">Bat</option>
-                    <option value="blow-fly">Blow Fly</option>
-                </select>
-                <label for="region">Country/Region:</label>
-                <select id="region">
-                    <option value="any">Any</option>
-                    <option value="northern-temperate">Northern Temperate</option>
-                    <option value="southern-temperate">Southern Temperate</option>
-                </select>
-                <label for="sequence-length">Sequence length:</label>
-                <input type="number" id="sequence-length" placeholder="Min">
-                <input type="number" placeholder="Max">
-                <label for="collection-date">Collection date:</label>
-                <input type="date" id="collection-date-from">
-                <input type="date" id="collection-date-to">
-            </div>
+             <form method="POST" action="">
+                {% csrf_token %}
+                <div class="filter-options">
+                    <label>
+                        <input type="radio" name="sequence-type" value="protein" checked>
+                        Protein
+                    </label>
+                    <label>
+                        <input type="radio" name="sequence-type" value="nucleotide">
+                        Nucleotide
+                    </label>
+                </div>
+                <div class="filter-inputs">
+                    <label for="keyword">Search for keyword:</label>
+                    <input type="text" name="keyword" id="keyword" placeholder="Enter keyword">
+                    <label for="strain-name">Search in:</label>
+                    <select name="strain" id="strain-name">
+                        <option value="strain-name">Strain Name</option>
+                        <option value="other-option">Other Option</option>
+                    </select>
+                </div>
+                <div class="advanced-filters">
+                    <h3>Define search set:</h3>
+                    <label for="host">Host:</label>
+                    <select name="host" id="host">
+                        {% for country in countries %}
+                            <option value="{{ country.code }}">{{ country.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="region">Country/Region:</label>
+                    <select name="region" id="region">
+                        <option value="any">Any</option>
+                        <option value="northern-temperate">Northern Temperate</option>
+                        <option value="southern-temperate">Southern Temperate</option>
+                    </select>
+                    <label for="sequence-length">Sequence length:</label>
+                    <input type="number" name="sequence_length_min" id="sequence-length" placeholder="Min">
+                    <input type="number" name="sequence_length_max" placeholder="Max">
+                    <label for="collection-date">Collection date:</label>
+                    <input type="date" name="collection_date_from" id="collection-date-from">
+                    <input type="date" name="collection_date_to" id="collection-date-to">
+                </div>
+                <button type="submit">Apply Filters</button>
+            </form>
         </section>
     </main>
     <footer>
@@ -95,15 +86,15 @@
             <div>
                 <h3>Getting Started</h3>
                 <ul>
-                    <li><a href="#">NCBI Education</a></li>
-                    <li><a href="#">NCBI Handbook</a></li>
+                    <li><a href="https://www.ncbi.nlm.nih.gov/education/">NCBI Education</a></li>
+                    <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK21101/">NCBI Handbook</a></li>
                 </ul>
             </div>
             <div>
                 <h3>Resources</h3>
                 <ul>
-                    <li><a href="#">Chemicals</a></li>
-                    <li><a href="#">Genomes</a></li>
+                    <li><a href="https://www.ncbi.nlm.nih.gov/pccompound">Chemicals</a></li>
+                    <li><a href="https://www.ncbi.nlm.nih.gov/genome/">Genomes</a></li>
                 </ul>
             </div>
         </div>
