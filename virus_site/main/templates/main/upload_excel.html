@@ -22,8 +22,8 @@
 
         /* Sidebar Styling */
         .sidebar {
-            width: 250px;
-            background-color: #f8f9fa;
+            width: 270px;
+            background-color: #ffffff;
             padding: 20px;
             border-right: 1px solid #ddd;
             position: sticky;
@@ -31,35 +31,46 @@
             height: 100vh;
             overflow-y: auto;
             flex-shrink: 0;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar h3 {
-            font-size: 18px;
             margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
         }
 
         .filter-item {
             margin-bottom: 15px;
         }
 
-        .filter-content input {
-            width: 100%;
-            padding: 8px;
+        .filter-item label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .filter-item input {
+            width: 90%;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-top: 5px;
+            font-size: 14px;
         }
 
         /* Content Styling */
         .content {
             flex: 1;
             padding: 20px;
-            overflow-x: auto;
             min-width: 800px;
+            overflow: hidden;
         }
 
+        /* Table Wrapper with Fixed Height and Scrollbar on Top */
         .table-container {
-            overflow-x: auto;
+            position: relative;
             max-width: 100%;
             background: white;
             padding: 15px;
@@ -68,6 +79,15 @@
             white-space: nowrap;
         }
 
+        /* Creating a Separate Scrollable Area Above the Table */
+        .table-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* The Actual Table */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -89,6 +109,25 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
+        /* Pagination Controls */
+        .pagination {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .pagination a {
+            padding: 8px 12px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -99,59 +138,43 @@
         <h3>Filters</h3>
         
         <div class="filter-item">
-            <button class="filter-toggle">Accession No.</button>
-            <div class="filter-content">
-                <input type="text" id="accessionFilter" placeholder="Enter accession(s)">
-            </div>
+            <label>Accession No.</label>
+            <input type="text" id="accessionFilter" placeholder="Enter accession(s)" onkeyup="filterTable()">
         </div>
 
         <div class="filter-item">
-            <button class="filter-toggle">Virus Name</button>
-            <div class="filter-content">
-                <input type="text" id="virusFilter" placeholder="Enter virus name">
-            </div>
+            <label>Virus Name</label>
+            <input type="text" id="virusFilter" placeholder="Enter virus name" onkeyup="filterTable()">
         </div>
 
         <div class="filter-item">
-            <button class="filter-toggle">VRL</button>
-            <div class="filter-content">
-                <input type="text" id="vrlFilter" placeholder="Enter VRL">
-            </div>
+            <label>VRL</label>
+            <input type="text" id="vrlFilter" placeholder="Enter VRL" onkeyup="filterTable()">
         </div>
 
         <div class="filter-item">
-            <button class="filter-toggle">Species Name</button>
-            <div class="filter-content">
-                <input type="text" id="speciesFilter" placeholder="Enter species name">
-            </div>
+            <label>Species Name</label>
+            <input type="text" id="speciesFilter" placeholder="Enter species name" onkeyup="filterTable()">
         </div>
 
         <div class="filter-item">
-            <button class="filter-toggle">Sequence Length</button>
-            <div class="filter-content">
-                <input type="number" id="lengthFilter" placeholder="Enter length">
-            </div>
+            <label>Sequence Length</label>
+            <input type="number" id="lengthFilter" placeholder="Enter length" onkeyup="filterTable()">
         </div>
 
         <div class="filter-item">
-            <button class="filter-toggle">Geographic Location</button>
-            <div class="filter-content">
-                <input type="text" id="geoFilter" placeholder="Enter location">
-            </div>
+            <label>Geographic Location</label>
+            <input type="text" id="geoFilter" placeholder="Enter location" onkeyup="filterTable()">
         </div>
 
         <div class="filter-item">
-            <button class="filter-toggle">Host</button>
-            <div class="filter-content">
-                <input type="text" id="hostFilter" placeholder="Enter host">
-            </div>
+            <label>Host</label>
+            <input type="text" id="hostFilter" placeholder="Enter host" onkeyup="filterTable()">
         </div>
 
         <div class="filter-item">
-            <button class="filter-toggle">Collection Date</button>
-            <div class="filter-content">
-                <input type="date" id="dateFilter">
-            </div>
+            <label>Collection Date</label>
+            <input type="date" id="dateFilter" onchange="filterTable()">
         </div>
     </div>
 
@@ -159,37 +182,55 @@
     <div class="content">
         <h2>Virus Database Records</h2>
 
-        <div class="table-container">
-            <table id="virusTable">
-                <thead>
-                    <tr>
-                        <th>Accession No</th>
-                        <th>Organism Name</th>
-                        <th>VRL</th>
-                        <th>Isolate</th>
-                        <th>Species</th>
-                        <th>Length</th>
-                        <th>Geo Location</th>
-                        <th>Host</th>
-                        <th>Collection Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for record in records %}
-                    <tr>
-                        <td>{{ record.accession_no }}</td>
-                        <td>{{ record.organism_name }}</td>
-                        <td>{{ record.vrl }}</td>
-                        <td>{{ record.isolate }}</td>
-                        <td>{{ record.species }}</td>
-                        <td>{{ record.length }}</td>
-                        <td>{{ record.geo_location }}</td>
-                        <td>{{ record.host }}</td>
-                        <td>{{ record.collection_date }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <!-- Horizontal Scrollbar at the Top -->
+        <div class="table-scroll">
+            <div class="table-container">
+                <table id="virusTable">
+                    <thead>
+                        <tr>
+                            <th>Accession No</th>
+                            <th>Organism Name</th>
+                            <th>VRL</th>
+                            <th>Isolate</th>
+                            <th>Species</th>
+                            <th>Length</th>
+                            <th>Geo Location</th>
+                            <th>Host</th>
+                            <th>Collection Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.accession_no }}</td>
+                            <td>{{ record.organism_name }}</td>
+                            <td>{{ record.vrl }}</td>
+                            <td>{{ record.isolate }}</td>
+                            <td>{{ record.species }}</td>
+                            <td>{{ record.length }}</td>
+                            <td>{{ record.geo_location }}</td>
+                            <td>{{ record.host }}</td>
+                            <td>{{ record.collection_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            {% if records.has_previous %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ records.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <span>Page {{ records.number }} of {{ records.paginator.num_pages }}</span>
+
+            {% if records.has_next %}
+                <a href="?page={{ records.next_page_number }}">Next</a>
+                <a href="?page={{ records.paginator.num_pages }}">Last</a>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -206,37 +247,20 @@
         let host = document.getElementById("hostFilter").value.toLowerCase();
         let date = document.getElementById("dateFilter").value;
 
-        document.querySelectorAll("#virusTable tbody tr").forEach(row => {
-            let cells = row.getElementsByTagName("td");
+        let table = document.getElementById("virusTable");
+        let rows = table.getElementsByTagName("tr");
 
-            let matchesFilter = (
-                (!accession || cells[0].textContent.toLowerCase().includes(accession)) &&
-                (!virus || cells[1].textContent.toLowerCase().includes(virus)) &&
-                (!vrl || cells[2].textContent.toLowerCase().includes(vrl)) &&
-                (!species || cells[4].textContent.toLowerCase().includes(species)) &&
-                (!length || cells[5].textContent.includes(length)) &&
-                (!geo || cells[6].textContent.toLowerCase().includes(geo)) &&
-                (!host || cells[7].textContent.toLowerCase().includes(host)) &&
-                (!date || cells[8].textContent.includes(date))
-            );
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName("td");
+            let text = [...cells].map(cell => cell.textContent.toLowerCase());
 
-            row.style.display = matchesFilter ? "" : "none";
-        });
+            rows[i].style.display = 
+                (text[0].includes(accession) && text[1].includes(virus) && text[2].includes(vrl) &&
+                text[4].includes(species) && text[5].includes(length) &&
+                text[6].includes(geo) && text[7].includes(host) && text[8].includes(date))
+                ? "" : "none";
+        }
     }
-
-    // Apply filtering on input change
-    document.querySelectorAll('.filter-content input').forEach(input => {
-        input.addEventListener('input', filterTable);
-    });
-
-    // Expand/collapse filter sections
-    document.querySelectorAll('.filter-toggle').forEach(button => {
-        button.addEventListener('click', () => {
-            const content = button.nextElementSibling;
-            content.style.display = content.style.display === 'block' ? 'none' : 'block';
-            button.classList.toggle('expanded');
-        });
-    });
 </script>
 
 </body>
