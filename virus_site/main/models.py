@@ -29,4 +29,3 @@ class ImportVirusRecord(models.Model):
     def __str__(self):
         return self.organism_name
 
-

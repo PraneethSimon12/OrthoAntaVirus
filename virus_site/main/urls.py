@@ -13,6 +13,9 @@ urlpatterns = [
     path('land/', views.landing_page, name='landing_page'),
     path('upload_excel/', views.upload_excel, name='upload_excel'),
     path('virus_list/',views.virus_list, name='virus_list'),  # landing_page page
-]
+    path('upload_excel/', views.upload_excel, name='fetch_excel'),
+    path('home/', views.home_view, name='home'),
+    path('filter/', views.filter_view, name='filter'),
 
+]
 

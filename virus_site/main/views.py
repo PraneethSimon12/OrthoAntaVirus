@@ -211,3 +211,9 @@ def virus_list(request):
     update_database_from_excel()  # ✅ Auto-update before fetching data
     records = ImportVirusRecord.objects.all()
     return render(request, 'main/virus_list.html', {'records': records})
+
+def home_view(request):
+    return render(request, 'main/home.html')
+
+def filter_view(request):
+    return render(request, 'main/filter.html')

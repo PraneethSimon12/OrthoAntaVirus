@@ -26,5 +26,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),  # Include the URLs from the `main` app
 ]
-
-

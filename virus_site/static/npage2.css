@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+.hed {
+    position: fixed;
+    width: 100%;
+}
+.lh{
+    display: flex;
+    justify-content:left;
+    align-items: center;
+    background-color: #161939;
+    padding: 10px 20px;
+    width: 100%;
+}
+/* Style for the main heading (OrthoHantavirus) */
+.main-heading {
+    text-align: justify;
+    background-color: #161939;
+    color: white;
+    font-size: 28px;
+    font-weight: bolder;
+    z-index: 999; /* Ensure it stays above other elements */
+
+}
+
+/* Style for the fixed navigation bar */
+.heading {
+    background-color: rgba(233, 228, 228, 0.5); /* 50% Transparency */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    height: 56px;
+    z-index: 999; /* Ensure it stays above other elements */
+
+}
+
+/* Logo Styling */
+.logo img {
+    height: 40px; /* Adjust logo size */
+    margin-right: 20px;
+    border-radius: 100%;
+}
+
+/* Remove bullets and arrange items in a row */
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+/* Space out menu items */
+.navbar li {
+    margin: 0 15px;
+}
+
+/* Style for navbar links */
+.navbar a {
+    text-decoration: none;
+    color: rgb(4, 4, 4);
+    font-size: 18px;
+    padding: 10px 15px;
+}
+
+.navbar a:hover {
+    background-color: rgba(83, 69, 69, 0.3);
+    border-radius: 5px;
+}
+
+/* Main Container for Sidebar and Content */
+.main-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Sidebar Filter */
+.filter-sidebar {
+    width: 250px;
+    background-color:  rgba(24, 94, 59, 0.4);
+    padding: 16px;
+    border-right: 1px solid #ddd;
+    position:sticky;
+    top: 200px; /* Adjust based on your layout */
+    max-height: calc(100vh - 100px); /* Prevents overlap with footer */
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.filter-sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.filter-item {
+    margin-bottom: 10px;
+}
+
+.filter-toggle {
+    width: 100%;
+    background-color: #e2e6ea;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.filter-content {
+    display: none;
+    padding: 10px 0;
+}
+
+.filter-content input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Optional: Expand/Collapse Button Style */
+.filter-toggle:after {
+    content: '+';
+    float: right;
+    font-size: 18px;
+}
+
+.filter-toggle.expanded:after {
+    content: '-';
+}
+
+/* Styling for Filter Options (Radio Buttons) */
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.filter-options label {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 124px;
+}
+
+.filter-options input[type="radio"] {
+    margin: 0;
+    transform: scale(1.2);
+}
+
+/* Date Input Style */
+.filter-date {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Content Area Styling */
+.content-area {
+    flex: 1;
+    padding: 20px;
+    min-height: 100vh; /* Ensures it fills the height */
+}
+
+body {
+    background-image: url('Images/finalbackground.jpg'); /* Path to your image */
+     /* Ensures the image covers the entire screen */
+     /* Centers the image */
+     /* Fixed background while scrolling */
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }

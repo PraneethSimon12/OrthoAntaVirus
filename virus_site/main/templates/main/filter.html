@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OrthohantaDB - Genomic Archive of Orthohantavirus</title>
+    <link rel="stylesheet" href="{% static 'filter.css' %}">
+</head>
+<body>
+    <!-- Logo Navigation Bar -->
+    <nav class="logo-nav">
+        <div class="logo">
+            <img src="{% static 'Images/logo.jpg' %}" alt="OrthohantaDB Logo" />
+            <h1>OrthohantaDB</h1>
+        </div>
+    </nav>
+
+    <!-- Main Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="#">Overview</a>
+            <a href="#">Database</a>
+        </div>
+        <div class="auth-links">
+            <a href="#">Login</a>
+            <a href="#" class="signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h2>Genomic Archive of Orthohantavirus</h2>
+    </div>
+
+    <!-- Main Content with Filter Section -->
+    <main>
+        <div class="content-container">
+            <!-- Left Column - Filter Section -->
+            <div class="left-column">
+                <div class="filter-section">
+                    <h3>Search Database</h3>
+
+                    <!-- Sequence Type Filter -->
+                    <div class="filter-row">
+                        <label><strong>Select sequence type</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="protein" name="sequence-type" checked />
+                                <label for="protein">Protein</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="nucleotide" name="sequence-type" />
+                                <label for="nucleotide">Nucleotide</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Protein Type Filter -->
+                    <div class="filter-row" id="protein-type-container">
+                        <label><strong>Choose Protein Type:</strong></label>
+                        <select>
+                            <option>Nucleocapsid Protein</option>
+                            <option>Glycoprotein</option>
+                            <option>RNA-dependent RNA Polymerase (RdRp)</option>
+                        </select>
+                    </div>
+
+                    <!-- Keyword Search -->
+                    <div class="filter-row">
+                        <label><strong>Search for keyword</strong></label>
+                        <input type="text" placeholder="Enter keywords..." />
+                    </div>
+
+                    <!-- Accession Number Search -->
+                    <div class="filter-row">
+                        <label><strong>Search by Accession no.</strong></label>
+                        <input type="text" placeholder="Ex: NC_005218" />
+                    </div>
+
+                    <!-- Two column layout for Species and Country -->
+                    <div style="display: flex; gap: 20px;">
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Species</strong></label>
+                            <select>
+                                <option>All</option>
+                                <option>Abrothrix longipilis</option>
+                                <option>Akodon montensis</option>
+                                <option>Akodon paranaensis</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Country/Region</strong></label>
+                            <select>
+                                <option>All</option>
+                                <option>Argentina</option>
+                                <option>Australia</option>
+                                <option>Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Two column layout for Host and Sequence Length -->
+                    <div style="display: flex; gap: 20px;">
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Host</strong></label>
+                            <select>
+                                <option>Select</option>
+                                <option>Homo sapiens</option>
+                                <option>Rodents</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Sequence Length</strong></label>
+                            <div class="sequence-length-inputs" style="display: flex; gap: 5px;">
+                                <input type="text" placeholder="Min" style="flex: 1;" />
+                                <input type="text" placeholder="Max" style="flex: 1;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Filters -->
+                    <div class="filter-row">
+                        <div class="date-filters" style="display: flex; gap: 20px;">
+                            <div class="date-filter" style="flex: 1;">
+                                <label><strong>Collection Date</strong></label>
+                                <input type="date" />
+                            </div>
+                            <div class="date-filter" style="flex: 1;">
+                                <label><strong>Release Date</strong></label>
+                                <input type="date" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Search Button -->
+                    <button class="search-btn">Search Database</button>
+                </div>
+            </div>
+
+            <!-- Right Column - News and FAQ -->
+            <div class="right-column">
+                <!-- News Box -->
+                <div class="news-box">
+                    <h3>Latest News</h3>
+
+                    <div class="news-item">
+                        <div class="news-date">May 10, 2025</div>
+                        <div class="news-title">Database Update: New Orthohantavirus Strains Added</div>
+                        <div class="news-excerpt">
+                            We've added 45 new sequences from recent isolates in South America.
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-date">April 28, 2025</div>
+                        <div class="news-title">Research Collaboration with WHO</div>
+                        <div class="news-excerpt">
+                            Our team has begun a new collaboration with WHO for global surveillance.
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-date">April 15, 2025</div>
+                        <div class="news-title">API Access Now Available</div>
+                        <div class="news-excerpt">
+                            Researchers can now access our database programmatically via API.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Box -->
+                <div class="faq-box">
+                    <h3>Frequently Asked Questions</h3>
+
+                    <div class="faq-item">
+                        <div class="faq-question">What is Orthohantavirus?</div>
+                        <div class="faq-answer">
+                            Orthohantaviruses are a family of viruses spread primarily by rodents that can cause
+                            various disease syndromes in humans, such as Hantavirus Pulmonary Syndrome (HPS) and
+                            Hemorrhagic Fever with Renal Syndrome (HFRS).
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">How do I cite data from this database?</div>
+                        <div class="faq-answer">
+                            Please cite our database using the following format: "OrthohantaDB (2025). Genomic Archive
+                            of Orthohantavirus. Retrieved from [URL], [date accessed]."
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Can I download all sequences at once?</div>
+                        <div class="faq-answer">
+                            Yes, registered users can download the complete dataset in various formats including FASTA,
+                            CSV, and JSON from the Downloads page.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">How often is the database updated?</div>
+                        <div class="faq-answer">
+                            Our database is updated monthly with new sequences and metadata as they become available from
+                            research institutions and public health agencies worldwide.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Protein Type Conditional Display
+        const proteinRadio = document.getElementById("protein");
+        const nucleotideRadio = document.getElementById("nucleotide");
+        const proteinTypeContainer = document.getElementById("protein-type-container");
+
+        function toggleProteinType() {
+            if (proteinRadio.checked) {
+                proteinTypeContainer.style.display = "block";
+            } else {
+                proteinTypeContainer.style.display = "none";
+            }
+        }
+
+        proteinRadio.addEventListener("change", toggleProteinType);
+        nucleotideRadio.addEventListener("change", toggleProteinType);
+
+        // Initialize on page load
+        toggleProteinType();
+
+        // FAQ toggle functionality
+        document.querySelectorAll(".faq-question").forEach((question) => {
+            question.addEventListener("click", function () {
+                this.classList.toggle("active");
+                const answer = this.nextElementSibling;
+                answer.classList.toggle("show");
+            });
+        });
+
+        // Make the main navigation sticky on scroll
+        window.addEventListener("scroll", function () {
+            const mainNav = document.querySelector(".main-nav");
+            mainNav.classList.toggle("sticky", window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

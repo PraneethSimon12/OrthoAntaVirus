@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrthohantaDB - Genomic Archive of Orthohantavirus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            background-image: url('./Images/finalbackground.jpg');
+            /* background-size: cover; */
+            /* background-attachment: fixed;
+            background-position: center; */
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+           /*  background-image: url('./Images/finalbackground.jpg'); */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        /* Logo Navigation */
+        .logo-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: #161939;
+            color: white;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        /* Main Navigation */
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 5%;
+            background-color:rgba(233, 228, 228, 0.5);;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: rgb(10, 10, 10);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(193, 185, 185, 0.1);
+        }
+        
+        .auth-links a {
+            color: rgb(7, 7, 7);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .auth-links a.signup {
+            background-color: #7a7474;
+            color: #131313;
+        }
+        
+        .auth-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .auth-links a.signup:hover {
+            background-color: white;
+        }
+        
+        /* Banner */
+        .banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .banner h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Content Layout */
+        .content-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: flex;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        
+        .left-column {
+            flex: 2;
+        }
+        
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            padding: 1.5rem;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(240, 245, 255, 0.95));
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .filter-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #161939;
+            text-align: center;
+        }
+        
+        .filter-row {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-row label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Radio buttons styling */
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .filter-row select, .filter-row input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background-color: white;
+        }
+        
+        .sequence-length-inputs {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .sequence-length-inputs input {
+            flex: 1;
+        }
+        
+        .date-filters {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .date-filter {
+            flex: 1;
+        }
+        
+        .search-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #161939;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .search-btn:hover {
+            background-color: #2a2e60;
+        }
+        
+        /* News Box */
+        .news-box {
+            padding: 1.5rem;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(240, 245, 255, 0.95));
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .news-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #161939;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .news-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .news-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .news-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+        
+        .news-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .news-excerpt {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        /* FAQ Box */
+        .faq-box {
+            padding: 1.5rem;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(240, 245, 255, 0.95));
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .faq-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #1a3c64;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .faq-item {
+            margin-bottom: 0.75rem;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+        
+        .faq-question.active::after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            display: none;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .main-nav {
+                flex-direction: column;
+                padding: 0.5rem 2%;
+            }
+            
+            .nav-links, .auth-links {
+                margin: 0.5rem 0;
+            }
+            
+            .banner h2 {
+                font-size: 1.8rem;
+            }
+            
+            .content-container {
+                flex-direction: column;
+            }
+            
+            .date-filters {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo Navigation Bar -->
+    <nav class="logo-nav">
+        <div class="logo">
+            <img src="logo.jpg" alt="OrthohantaDB Logo">
+            <h1>OrthohantaDB</h1>
+        </div>
+    </nav>
+    
+    <!-- Main Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="#">Overview</a>
+            <a href="#">Database</a>
+        </div>
+        <div class="auth-links">
+            <a href="#">Login</a>
+            <a href="#" class="signup">Sign Up</a>
+        </div>
+    </nav>
+    
+    <!-- Banner -->
+    <div class="banner">
+        <h2>Genomic Archive of Orthohantavirus</h2>
+    </div>
+    
+    <!-- Main Content with Filter Section -->
+    <main>
+        <div class="content-container">
+            <!-- Left Column - Filter Section -->
+            <div class="left-column">
+                <div class="filter-section">
+                    <h3>Search Database</h3>
+                    
+                    <!-- Sequence Type Filter -->
+                    <div class="filter-row">
+                        <label><strong>Select sequence type</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="protein" name="sequence-type" checked>
+                                <label for="protein">Protein</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="nucleotide" name="sequence-type">
+                                <label for="nucleotide">Nucleotide</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Protein Type Filter -->
+                    <div class="filter-row" id="protein-type-container">
+                        <label><strong>Choose Protein Type:</strong></label>
+                        <select>
+                            <option>Nucleocapsid Protein</option>
+                            <option>Glycoprotein</option>
+                            <option>RNA-dependent RNA Polymerase (RdRp)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Keyword Search -->
+                    <div class="filter-row">
+                        <label><strong>Search for keyword</strong></label>
+                        <input type="text" placeholder="Enter keywords...">
+                    </div>
+                    
+                    <!-- Accession Number Search -->
+                    <div class="filter-row">
+                        <label><strong>Search by Accession no.</strong></label>
+                        <input type="text" placeholder="Ex: NC_005218">
+                    </div>
+                    
+                    <!-- Two column layout for Species and Country -->
+                    <div style="display: flex; gap: 20px;">
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Species</strong></label>
+                            <select>
+                                <option>All</option>
+                                <option>Abrothrix longipilis</option>
+                                <option>Akodon montensis</option>
+                                <option>Akodon paranaensis</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Country/Region</strong></label>
+                            <select>
+                                <option>All</option>
+                                <option>Argentina</option>
+                                <option>Australia</option>
+                                <option>Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Two column layout for Host and Sequence Length -->
+                    <div style="display: flex; gap: 20px;">
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Host</strong></label>
+                            <select>
+                                <option>Select</option>
+                                <option>Homo sapiens</option>
+                                <option>Rodents</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-row" style="flex: 1;">
+                            <label><strong>Sequence Length</strong></label>
+                            <div class="sequence-length-inputs">
+                                <input type="text" placeholder="Min" style="flex: 1;">
+                                <input type="text" placeholder="Max" style="flex: 1;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Date Filters -->
+                    <div class="filter-row">
+                        <div class="date-filters">
+                            <div class="date-filter">
+                                <label><strong>Collection Date</strong></label>
+                                <input type="date">
+                            </div>
+                            <div class="date-filter">
+                                <label><strong>Release Date</strong></label>
+                                <input type="date">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Button -->
+                    <button class="search-btn">Search Database</button>
+                </div>
+            </div>
+            
+            <!-- Right Column - News and FAQ -->
+            <div class="right-column">
+                <!-- News Box -->
+                <div class="news-box">
+                    <h3>Latest News</h3>
+                    
+                    <div class="news-item">
+                        <div class="news-date">May 10, 2025</div>
+                        <div class="news-title">Database Update: New Orthohantavirus Strains Added</div>
+                        <div class="news-excerpt">We've added 45 new sequences from recent isolates in South America.</div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <div class="news-date">April 28, 2025</div>
+                        <div class="news-title">Research Collaboration with WHO</div>
+                        <div class="news-excerpt">Our team has begun a new collaboration with WHO for global surveillance.</div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <div class="news-date">April 15, 2025</div>
+                        <div class="news-title">API Access Now Available</div>
+                        <div class="news-excerpt">Researchers can now access our database programmatically via API.</div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Box -->
+                <div class="faq-box">
+                    <h3>Frequently Asked Questions</h3>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What is Orthohantavirus?</div>
+                        <div class="faq-answer">Orthohantaviruses are a family of viruses spread primarily by rodents that can cause various disease syndromes in humans, such as Hantavirus Pulmonary Syndrome (HPS) and Hemorrhagic Fever with Renal Syndrome (HFRS).</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How do I cite data from this database?</div>
+                        <div class="faq-answer">Please cite our database using the following format: "OrthohantaDB (2025). Genomic Archive of Orthohantavirus. Retrieved from [URL], [date accessed]."</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Can I download all sequences at once?</div>
+                        <div class="faq-answer">Yes, registered users can download the complete dataset in various formats including FASTA, CSV, and JSON from the Downloads page.</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How often is the database updated?</div>
+                        <div class="faq-answer">Our database is updated monthly with new sequences and metadata as they become available from research institutions and public health agencies worldwide.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Protein Type Conditional Display
+        const proteinRadio = document.getElementById('protein');
+        const nucleotideRadio = document.getElementById('nucleotide');
+        const proteinTypeContainer = document.getElementById('protein-type-container');
+        
+        function toggleProteinType() {
+            if (proteinRadio.checked) {
+                proteinTypeContainer.style.display = 'block';
+            } else {
+                proteinTypeContainer.style.display = 'none';
+            }
+        }
+        
+        proteinRadio.addEventListener('change', toggleProteinType);
+        nucleotideRadio.addEventListener('change', toggleProteinType);
+        
+        // Initialize on page load
+        toggleProteinType();
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const answer = this.nextElementSibling;
+                answer.classList.toggle('show');
+            });
+        });
+        
+        // Make the main navigation sticky on scroll
+        window.addEventListener('scroll', function() {
+            const mainNav = document.querySelector('.main-nav');
+            mainNav.classList.toggle('sticky', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

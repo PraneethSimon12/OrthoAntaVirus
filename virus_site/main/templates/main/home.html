@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orthohantavirus Genomic Database</title>
+     
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    <!-- Logo Navigation Bar -->
+    <nav class="logo-nav">
+        <div class="logo">
+            <img src="{% static 'logo.jpg' %}" alt="OrthohantaDB Logo">
+            <h1>Ortho<span>Hanta</span> DB</h1>
+        </div>
+    </nav>
+    
+    <!-- Main Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="">Overview</a>
+            <a href="">Database</a>
+        </div>
+        <div class="auth-links">
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}</span>
+                <a href="">Logout</a>
+            {% else %}
+                <a href="">Login</a>
+                <a href="" class="signup">Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Hero Section with Search -->
+    <section class="hero">
+        <div class="container">
+            <h1>Comprehensive Orthohantavirus Genomic Database</h1>
+            <p>A centralized repository of genomic data, research tools, and resources for understanding Orthohantavirus pathogens</p>
+            <form class="search-bar" method="get" action="">
+                <input type="text" name="q" placeholder="Search for genes, proteins, or strains...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Overview Box - Left Column -->
+                <div class="box overview" style="grid-column: 1;">
+                    <h2 class="box-title">OVERVIEW</h2>
+                    <p>Orthohantaviruses are enveloped, negative-sense RNA viruses belonging to the <em>Hantaviridae</em> family, primarily maintained in rodent reservoirs that shed the virus through urine, feces, and saliva. Their genome consists of three segments—Small (S), Medium (M), and Large (L)—which encode the Nucleocapsid (N) protein, Glycoproteins Gn and Gc, and the RNA-Dependent RNA Polymerase (RdRp), respectively.</p>
+                    <p>These viruses cause two major human diseases: Hemorrhagic Fever with Renal Syndrome (HFRS), mainly in Europe and Asia, and Hantavirus Cardiopulmonary Syndrome (HCPS) in America. Transmission to humans typically occurs through inhalation of aerosolized rodent excreta.</p>
+                    <p>Orthohantavirus infection targets endothelial cells, leading to increased vascular permeability and immune-mediated tissue damage. Clinical outcomes vary by virus species, with HFRS fatality rates ranging from less than 1% to 15%, and HCPS mortality reaching up to 60%.</p>
+                    <p>Diagnosis relies on molecular and serological methods, while treatment remains supportive as no specific antivirals or vaccines are currently approved. Ongoing research focuses on understanding viral protein functions, host interactions, and genomic diversity to aid in the development of effective therapeutics and preventive measures. This genomic archive compiles comprehensive data on all three viral segments to support such efforts.</p>
+                </div>
+
+                <!-- Mission Box - Right Column, Parallel to Overview -->
+                <div class="box mission" style="grid-column: 2; grid-row: 1;">
+                    <h2 class="box-title">MISSION & PURPOSE</h2>
+                    <p>Our goal is to centralize, curate, and simplify access to OrthoHantavirus genomic data for use in research, surveillance, diagnostics, and drug development.</p>
+                </div>
+
+                <!-- Taxonomic Overview Box - Below Overview -->
+                <div class="box taxonomy" style="grid-column: 1; grid-row: 2;">
+                    <h2 class="box-title">TAXONOMIC OVERVIEW</h2>
+                    <p>OrthoHantavirus comprises a diverse array of rodent-, shrew-, mole-, and bat-associated viruses. Based on ICTV classification and recent genomic data, species are broadly divided into <strong>classified</strong> and <strong>provisionally unclassified</strong> groups.</p>
+                    <p>Explore the full list of known OrthoHantaviruses, their host associations, strain references, and taxonomic status.</p>
+                    <a href="" class="view-button">View Full Taxonomic List →</a>
+                </div>
+
+                <!-- Did You Know Box - Below Mission Box -->
+                <div class="box facts" style="grid-column: 2; grid-row: 2;">
+                    <h2 class="box-title">DID YOU KNOW?</h2>
+                    <ol class="facts-list">
+                        <li>OrthoHantaviruses have co-evolved with specific rodent hosts for millions of years, leading to strict virus-host pairings.</li>
+                        <li>The Andes virus is the only known hantavirus that can transmit person-to-person, with outbreaks reported in Chile and Argentina.</li>
+                        <li>Infected rodents shed the virus in saliva, urine, and feces — but remain asymptomatic carriers for life.</li>
+                        <li>Hantavirus Pulmonary Syndrome (HPS) was first recognized in 1993 in the U.S. Four Corners region, with deer mice identified as the source.</li>
+                        <li>Although no global vaccine exists, China uses an inactivated vaccine for Hantaan and Seoul viruses, and new DNA and VLP vaccines are in development.</li>
+                        <li>Outbreaks often follow "mast years" when oak or beech trees produce excess seeds, causing rodent populations (like voles) to spike.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links">
+        <div class="container">
+            <div class="links-grid">
+                <div class="link-card">
+                    <img src="{% static 'images/genomic_database.png' %}" alt="Genomic Database">
+                    <h3>Genomic Database</h3>
+                    <p>Access sequences from all three genomic segments (S, M, L) and perform comparative analysis</p>
+                    <a href="" class="view-button">Explore Data</a>
+                </div>
+                <div class="link-card">
+                    <img src="{% static 'images/research_tools.png' %}" alt="Research Tools">
+                    <h3>Research Tools</h3>
+                    <p>Utilize sequence alignment, phylogenetic analysis, and protein structure prediction tools</p>
+                    <a href="" class="view-button">Use Tools</a>
+                </div>
+                <div class="link-card">
+                    <img src="{% static 'images/clinical_resources.png' %}" alt="Clinical Resources">
+                    <h3>Clinical Resources</h3>
+                    <p>Information on diagnostics, treatment protocols, and epidemiological data</p>
+                    <a href="" class="view-button">View Resources</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Genomic Database</a></li>
+                        <li><a href="">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="">Sequence Repository</a></li>
+                        <li><a href="">Phylogenetic Tools</a></li>
+                        <li><a href="">Disease Information</a></li>
+                        <li><a href="">Educational Materials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="">Contact Us</a></li>
+                        <li><a href="">Submit Data</a></li>
+                        <li><a href="">Research Collaboration</a></li>
+                        <li><a href="">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Orthohantavirus Genomic Database. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
