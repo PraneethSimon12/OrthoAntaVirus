@@ -41,102 +41,105 @@
                 <div class="filter-section">
                     <h3>Search Database</h3>
 
-                    <!-- Sequence Type Filter -->
-                    <div class="filter-row">
-                        <label><strong>Select sequence type</strong></label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="protein" name="sequence-type" checked />
-                                <label for="protein">Protein</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="nucleotide" name="sequence-type" />
-                                <label for="nucleotide">Nucleotide</label>
+                    <form method="get" action="{% url 'upload_excel' %}">
+                        <!-- Sequence Type Filter -->
+                        <div class="filter-row">
+                            <label><strong>Select sequence type</strong></label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="protein" name="sequence_type" value="protein" checked />
+                                    <label for="protein">Protein</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="nucleotide" name="sequence_type" value="nucleotide" />
+                                    <label for="nucleotide">Nucleotide</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Protein Type Filter -->
-                    <div class="filter-row" id="protein-type-container">
-                        <label><strong>Choose Protein Type:</strong></label>
-                        <select>
-                            <option>Nucleocapsid Protein</option>
-                            <option>Glycoprotein</option>
-                            <option>RNA-dependent RNA Polymerase (RdRp)</option>
-                        </select>
-                    </div>
-
-                    <!-- Keyword Search -->
-                    <div class="filter-row">
-                        <label><strong>Search for keyword</strong></label>
-                        <input type="text" placeholder="Enter keywords..." />
-                    </div>
-
-                    <!-- Accession Number Search -->
-                    <div class="filter-row">
-                        <label><strong>Search by Accession no.</strong></label>
-                        <input type="text" placeholder="Ex: NC_005218" />
-                    </div>
-
-                    <!-- Two column layout for Species and Country -->
-                    <div style="display: flex; gap: 20px;">
-                        <div class="filter-row" style="flex: 1;">
-                            <label><strong>Species</strong></label>
-                            <select>
-                                <option>All</option>
-                                <option>Abrothrix longipilis</option>
-                                <option>Akodon montensis</option>
-                                <option>Akodon paranaensis</option>
+                        <!-- Protein Type Filter -->
+                        <div class="filter-row" id="protein-type-container">
+                            <label><strong>Choose Protein Type:</strong></label>
+                            <select name="protein_type">
+                                <option value="nucleocapsid">Nucleocapsid Protein</option>
+                                <option value="glycoprotein">Glycoprotein</option>
+                                <option value="rdRp">RNA-dependent RNA Polymerase (RdRp)</option>
                             </select>
                         </div>
 
-                        <div class="filter-row" style="flex: 1;">
-                            <label><strong>Country/Region</strong></label>
-                            <select>
-                                <option>All</option>
-                                <option>Argentina</option>
-                                <option>Australia</option>
-                                <option>Others</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Two column layout for Host and Sequence Length -->
-                    <div style="display: flex; gap: 20px;">
-                        <div class="filter-row" style="flex: 1;">
-                            <label><strong>Host</strong></label>
-                            <select>
-                                <option>Select</option>
-                                <option>Homo sapiens</option>
-                                <option>Rodents</option>
-                            </select>
+                        <!-- Keyword Search -->
+                        <div class="filter-row">
+                            <label><strong>Search for keyword</strong></label>
+                            <input type="text" name="keyword" placeholder="Enter keywords..." />
                         </div>
 
-                        <div class="filter-row" style="flex: 1;">
-                            <label><strong>Sequence Length</strong></label>
-                            <div class="sequence-length-inputs" style="display: flex; gap: 5px;">
-                                <input type="text" placeholder="Min" style="flex: 1;" />
-                                <input type="text" placeholder="Max" style="flex: 1;" />
+                        <!-- Accession Number Search -->
+                        <div class="filter-row">
+                            <label><strong>Search by Accession no.</strong></label>
+                            <input type="text" name="accession_no" placeholder="Ex: NC_005218" />
+                        </div>
+
+                        <!-- Two column layout for Species and Country -->
+                        <div style="display: flex; gap: 20px;">
+                            <div class="filter-row" style="flex: 1;">
+                                <label><strong>Species</strong></label>
+                                <select name="species">
+                                    <option value="">All</option>
+                                    <option value="Abrothrix longipilis">Abrothrix longipilis</option>
+                                    <option value="Akodon montensis">Akodon montensis</option>
+                                    <option value="Akodon paranaensis">Akodon paranaensis</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-row" style="flex: 1;">
+                                <label><strong>Country/Region</strong></label>
+                                <select name="country_region">
+                                    <option value="">All</option>
+                                    <option value="Argentina">Argentina</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="Others">Others</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Date Filters -->
-                    <div class="filter-row">
-                        <div class="date-filters" style="display: flex; gap: 20px;">
-                            <div class="date-filter" style="flex: 1;">
-                                <label><strong>Collection Date</strong></label>
-                                <input type="date" />
+                        <!-- Two column layout for Host and Sequence Length -->
+                        <div style="display: flex; gap: 20px;">
+                            <div class="filter-row" style="flex: 1;">
+                                <label><strong>Host</strong></label>
+                                <select name="host">
+                                    <option value="">Select</option>
+                                    <option value="Homo sapiens">Homo sapiens</option>
+                                    <option value="Rodents">Rodents</option>
+                                </select>
                             </div>
-                            <div class="date-filter" style="flex: 1;">
-                                <label><strong>Release Date</strong></label>
-                                <input type="date" />
+
+                            <div class="filter-row" style="flex: 1;">
+                                <label><strong>Sequence Length</strong></label>
+                                <div class="sequence-length-inputs" style="display: flex; gap: 5px;">
+                                    <input type="text" name="length_min" placeholder="Min" style="flex: 1;" />
+                                    <input type="text" name="length_max" placeholder="Max" style="flex: 1;" />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Search Button -->
-                    <button class="search-btn">Search Database</button>
+                        <!-- Date Filters -->
+                        <div class="filter-row">
+                            <div class="date-filters" style="display: flex; gap: 20px;">
+                                <div class="date-filter" style="flex: 1;">
+                                    <label><strong>Collection Date</strong></label>
+                                    <input type="date" name="collection_date" />
+                                </div>
+                                <div class="date-filter" style="flex: 1;">
+                                    <label><strong>Release Date</strong></label>
+                                    <input type="date" name="release_date" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Search Button -->
+                        <button type="submit" class="search-btn">Search Database</button>
+                    </form>
+
                 </div>
             </div>
 

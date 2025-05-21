@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orthohantavirus</title>
+    <link rel="stylesheet" href="npage2.css">
+</head>
+<body>
+
+    <div class="hed">
+        <!-- Heading Above Navbar -->
+        <div class="lh">
+            <div class="logo">
+                <img src="Images/logo2.png" alt="Logo">
+            </div>
+            <h1 class="main-heading">OrthoHantaDB</h1>
+        </div>
+    <!-- Navigation Bar -->
+    <header class="heading">
+        
+        <nav class="navbar">
+            <ul>
+                <li><a href="#">Overview</a></li>
+                <li><a href="#">Database</a></li>
+            </ul>
+        </nav>
+    </header>
+    </div>
+
+
+    <!-- Main Container for Sidebar and Content -->
+<div class="main-container">
+    <!-- Filters Sidebar -->
+    <div class="filter-sidebar">
+        <h3>Filters</h3>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Accession No.</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter accession(s)">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Virus Name</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter virus name">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">VRL</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter VRL">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Species Name</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter species name">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Sequence Length</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter sequence length">
+            </div>
+        </div>
+        
+        <div class="filter-item">
+            <button class="filter-toggle">Geographic Location</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Enter geographic location">
+            </div>
+        </div>
+        
+        <!-- Host Filter with Radio Buttons -->
+        <div class="filter-item">
+            <button class="filter-toggle">Host</button>
+            <div class="filter-content">
+                <input type="text" placeholder="Search host..." class="filter-search">
+                <div class="filter-options">
+                    <label>
+                        <input type="radio" name="host" value="humans"> Humans
+                    </label>
+                    <label>
+                        <input type="radio" name="host" value="rodents"> Rodents
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Collection Date Filter -->
+        <div class="filter-item">
+            <button class="filter-toggle">Collection Date</button>
+            <div class="filter-content">
+                <input type="date" class="filter-date">
+            </div>
+        </div>
+        
+        <!-- Add more filters as needed -->
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-area">
+        <!-- Your main content goes here -->
+    </div>
+</div>
+
+
+
+
+
+<script src="npage2.js"></script>
+
+</body>
+</html>

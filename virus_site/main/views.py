@@ -18,8 +18,6 @@ def index_view(request):
     return render(request, 'main/index.html') 
 
 
-
-
 def page2_view(request):
     return render(request, 'main/page2.html')
 
@@ -40,40 +38,57 @@ def landing_page(request):
 
 EXCEL_FILE_PATH = r"C:\OrthoAntaVirus\Database\RDRP_ORTHOHANTA.xlsx"
 
+
 # def upload_excel(request):
-#     """Reads an Excel file and imports virus records into the database"""
+#     """Handles file uploads, updates database, and paginates the records."""
     
-#     # Check if the file exists
+#     # Handle file upload
+#     if request.method == 'POST' and request.FILES.get('excel_file'):
+#         uploaded_file = request.FILES['excel_file']
+#         file_path = os.path.join("C:\\OrthoAntaVirus\\Database", uploaded_file.name)
+
+#         with open(file_path, 'wb+') as destination:
+#             for chunk in uploaded_file.chunks():
+#                 destination.write(chunk)
+
+#         messages.success(request, f"✅ File {uploaded_file.name} uploaded successfully!")
+#         return redirect('upload_excel')
+
+#     # Update the database before fetching records
+#     update_database_from_excel()
+
+#     # Fetch all virus records from the database
+#     records = ImportVirusRecord.objects.all().order_by('id')
+
+#     # Pagination (50 records per page)
+#     paginator = Paginator(records, 50)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+
+#     return render(request, 'main/upload_excel.html', {'records': page_obj})
+
+# def update_database_from_excel():
+#     """Reads the Excel file, updates the database, and removes missing rows"""
 #     if not os.path.exists(EXCEL_FILE_PATH):
-#         messages.error(request, f"⚠️ File not found: {EXCEL_FILE_PATH}")
 #         print(f"❌ ERROR: File not found at {EXCEL_FILE_PATH}")
-#         return redirect('virus_list')
+#         return
 
 #     try:
-#         # ✅ Load the Excel file
 #         df = pd.read_excel(EXCEL_FILE_PATH, engine='openpyxl')
 
-#         # ✅ Print actual column headers for debugging
-#         print("📢 DEBUG: Column Headers in Excel ->", df.columns.tolist())
-
-#         # ✅ Standardize column names by stripping spaces
+#         # ✅ Standardize column names (all caps, remove spaces)
 #         df.columns = df.columns.str.strip()
 
-#         # ✅ Expected Columns (Updated to match ALL CAPS)
 #         expected_columns = ["ACCESSION NO.", "ORGANISM NAME", "VRL", "ISOLATE", 
 #                             "SPECIES", "LENGTH", "GEO LOCATION", "HOST", "COLLECTION DATE"]
 
-#         # ✅ Check if all required columns exist
+#         # ✅ Ensure the required columns exist
 #         missing_columns = [col for col in expected_columns if col not in df.columns]
 #         if missing_columns:
-#             messages.error(request, f"⚠️ Missing columns in Excel: {missing_columns}")
 #             print(f"❌ ERROR: Missing columns -> {missing_columns}")
-#             return redirect('virus_list')
+#             return
 
-#         # ✅ Keep only the expected columns
 #         df = df[expected_columns]
-
-#         # ✅ Replace "not defined" with None for NULL values
 #         df.replace("not defined", None, inplace=True)
 
 #         # ✅ Convert "LENGTH" column to integer safely
@@ -89,7 +104,13 @@ EXCEL_FILE_PATH = r"C:\OrthoAntaVirus\Database\RDRP_ORTHOHANTA.xlsx"
 #         df['COLLECTION DATE'] = df['COLLECTION DATE'].apply(format_date)
 #         df['VRL'] = df['VRL'].apply(format_date)
 
-#         # ✅ Insert data into the database
+#         # ✅ Store only valid accession numbers from Excel
+#         excel_accession_numbers = df["ACCESSION NO."].dropna().astype(str).tolist()
+
+#         # ✅ Remove records that are in the database but missing from Excel
+#         ImportVirusRecord.objects.exclude(accession_no__in=excel_accession_numbers).delete()
+
+#         # ✅ Insert or update records from Excel
 #         for _, row in df.iterrows():
 #             ImportVirusRecord.objects.update_or_create(
 #                 accession_no=row['ACCESSION NO.'],
@@ -104,87 +125,46 @@ EXCEL_FILE_PATH = r"C:\OrthoAntaVirus\Database\RDRP_ORTHOHANTA.xlsx"
 #                     'collection_date': row['COLLECTION DATE']
 #                 }
 #             )
-        
-#         messages.success(request, "✅ Data imported successfully from RDRP_ORTHOHANTA.xlsx!")
+
+#         print("✅ Database updated from Excel successfully (deleted missing records)!")
 
 #     except Exception as e:
-#         messages.error(request, f"⚠️ Error importing data: {e}")
 #         print(f"❌ ERROR: {e}")
 
-#     return redirect('virus_list')
-
-def upload_excel(request):
-    """Handles file uploads, updates database, and paginates the records."""
-    
-    # Handle file upload
-    if request.method == 'POST' and request.FILES.get('excel_file'):
-        uploaded_file = request.FILES['excel_file']
-        file_path = os.path.join("C:\\OrthoAntaVirus\\Database", uploaded_file.name)
-
-        with open(file_path, 'wb+') as destination:
-            for chunk in uploaded_file.chunks():
-                destination.write(chunk)
-
-        messages.success(request, f"✅ File {uploaded_file.name} uploaded successfully!")
-        return redirect('upload_excel')
-
-    # Update the database before fetching records
-    update_database_from_excel()
-
-    # Fetch all virus records from the database
-    records = ImportVirusRecord.objects.all().order_by('id')
-
-    # Pagination (50 records per page)
-    paginator = Paginator(records, 50)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'main/upload_excel.html', {'records': page_obj})
-
 def update_database_from_excel():
-    """Reads the Excel file, updates the database, and removes missing rows"""
+    """Update DB from Excel - your existing logic here"""
     if not os.path.exists(EXCEL_FILE_PATH):
-        print(f"❌ ERROR: File not found at {EXCEL_FILE_PATH}")
+        print(f"File not found at {EXCEL_FILE_PATH}")
         return
 
     try:
         df = pd.read_excel(EXCEL_FILE_PATH, engine='openpyxl')
-
-        # ✅ Standardize column names (all caps, remove spaces)
         df.columns = df.columns.str.strip()
 
-        expected_columns = ["ACCESSION NO.", "ORGANISM NAME", "VRL", "ISOLATE", 
+        expected_columns = ["ACCESSION NO.", "ORGANISM NAME", "VRL", "ISOLATE",
                             "SPECIES", "LENGTH", "GEO LOCATION", "HOST", "COLLECTION DATE"]
 
-        # ✅ Ensure the required columns exist
-        missing_columns = [col for col in expected_columns if col not in df.columns]
-        if missing_columns:
-            print(f"❌ ERROR: Missing columns -> {missing_columns}")
+        missing_cols = [col for col in expected_columns if col not in df.columns]
+        if missing_cols:
+            print(f"Missing columns: {missing_cols}")
             return
 
         df = df[expected_columns]
         df.replace("not defined", None, inplace=True)
-
-        # ✅ Convert "LENGTH" column to integer safely
         df['LENGTH'] = pd.to_numeric(df['LENGTH'], errors='coerce').fillna(0).astype(int)
 
-        # ✅ Convert Dates to YYYY-MM-DD format
         def format_date(value):
             try:
                 return pd.to_datetime(value, errors='coerce').strftime('%Y-%m-%d')
             except:
-                return None  # If invalid, store as NULL
+                return None
 
         df['COLLECTION DATE'] = df['COLLECTION DATE'].apply(format_date)
         df['VRL'] = df['VRL'].apply(format_date)
 
-        # ✅ Store only valid accession numbers from Excel
-        excel_accession_numbers = df["ACCESSION NO."].dropna().astype(str).tolist()
+        excel_accessions = df["ACCESSION NO."].dropna().astype(str).tolist()
+        ImportVirusRecord.objects.exclude(accession_no__in=excel_accessions).delete()
 
-        # ✅ Remove records that are in the database but missing from Excel
-        ImportVirusRecord.objects.exclude(accession_no__in=excel_accession_numbers).delete()
-
-        # ✅ Insert or update records from Excel
         for _, row in df.iterrows():
             ImportVirusRecord.objects.update_or_create(
                 accession_no=row['ACCESSION NO.'],
@@ -200,10 +180,77 @@ def update_database_from_excel():
                 }
             )
 
-        print("✅ Database updated from Excel successfully (deleted missing records)!")
+        print("Database updated from Excel successfully!")
 
     except Exception as e:
-        print(f"❌ ERROR: {e}")
+        print(f"Error updating DB: {e}")
+
+
+def upload_excel(request):
+    # Handle file upload via POST
+    if request.method == 'POST' and request.FILES.get('excel_file'):
+        uploaded_file = request.FILES['excel_file']
+        file_path = os.path.join("C:\\OrthoAntaVirus\\Database", uploaded_file.name)
+
+        with open(file_path, 'wb+') as destination:
+            for chunk in uploaded_file.chunks():
+                destination.write(chunk)
+
+        messages.success(request, f"File {uploaded_file.name} uploaded successfully!")
+        return redirect('upload_excel')
+
+    # Update database before querying
+    update_database_from_excel()
+
+    # Get filter values from GET params
+    sequence_type = request.GET.get('sequence_type')
+    protein_type = request.GET.get('protein_type')
+    keyword = request.GET.get('keyword', '').strip()
+    accession_no = request.GET.get('accession_no', '').strip()
+    species = request.GET.get('species', '').strip()
+    country_region = request.GET.get('country_region', '').strip()
+    host = request.GET.get('host', '').strip()
+    length_min = request.GET.get('length_min')
+    length_max = request.GET.get('length_max')
+    collection_date = request.GET.get('collection_date')
+    release_date = request.GET.get('release_date')
+
+    # Start queryset
+    records = ImportVirusRecord.objects.all()
+
+    # Apply filters stepwise if provided
+    if accession_no:
+        records = records.filter(accession_no__icontains=accession_no)
+    if keyword:
+        records = records.filter(organism_name__icontains=keyword)
+    if species:
+        records = records.filter(species__icontains=species)
+    if country_region:
+        records = records.filter(geo_location__icontains=country_region)
+    if host:
+        records = records.filter(host__icontains=host)
+    if length_min and length_min.isdigit():
+        records = records.filter(length__gte=int(length_min))
+    if length_max and length_max.isdigit():
+        records = records.filter(length__lte=int(length_max))
+    if collection_date:
+        records = records.filter(collection_date=collection_date)
+    # Note: Add release_date filtering if relevant field exists
+
+    # If you want, filter by sequence_type or protein_type depending on your model/data structure
+
+    records = records.order_by('id')
+
+    # Paginate (50 per page)
+    paginator = Paginator(records, 50)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Render template with paginated filtered results
+    return render(request, 'main/upload_excel.html', {
+        'records': page_obj,
+        'filters': request.GET,
+    })
 
 
 def virus_list(request):

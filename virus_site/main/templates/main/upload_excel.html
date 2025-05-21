@@ -183,40 +183,48 @@
         <h2>Virus Database Records</h2>
 
         <!-- Horizontal Scrollbar at the Top -->
-        <div class="table-scroll">
-            <div class="table-container">
-                <table id="virusTable">
-                    <thead>
-                        <tr>
-                            <th>Accession No</th>
-                            <th>Organism Name</th>
-                            <th>VRL</th>
-                            <th>Isolate</th>
-                            <th>Species</th>
-                            <th>Length</th>
-                            <th>Geo Location</th>
-                            <th>Host</th>
-                            <th>Collection Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for record in records %}
-                        <tr>
-                            <td>{{ record.accession_no }}</td>
-                            <td>{{ record.organism_name }}</td>
-                            <td>{{ record.vrl }}</td>
-                            <td>{{ record.isolate }}</td>
-                            <td>{{ record.species }}</td>
-                            <td>{{ record.length }}</td>
-                            <td>{{ record.geo_location }}</td>
-                            <td>{{ record.host }}</td>
-                            <td>{{ record.collection_date }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  <div class="table-scroll">
+    <div class="table-container">
+      <table id="virusTable">
+        <thead>
+          <tr>
+            <th>Accession No</th>
+            <th>Organism Name</th>
+            <th>VRL</th>
+            <th>Isolate</th>
+            <th>Species</th>
+            <th>Length</th>
+            <th>Geo Location</th>
+            <th>Host</th>
+            <th>Collection Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in records %}
+          <tr>
+            <td>
+              <a
+                href="https://www.ncbi.nlm.nih.gov/protein/{{ record.accession_no }}/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ record.accession_no }}
+              </a>
+            </td>
+            <td>{{ record.organism_name }}</td>
+            <td>{{ record.vrl }}</td>
+            <td>{{ record.isolate }}</td>
+            <td>{{ record.species }}</td>
+            <td>{{ record.length }}</td>
+            <td>{{ record.geo_location }}</td>
+            <td>{{ record.host }}</td>
+            <td>{{ record.collection_date }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
         <!-- Pagination Controls -->
         <div class="pagination">
