@@ -11,7 +11,7 @@
     <!-- Logo Navigation Bar -->
     <nav class="logo-nav">
         <div class="logo">
-            <img src="{% static 'Images/logo.jpg' %}" alt="OrthohantaDB Logo" />
+            <img src="{% static 'logo.jpg' %}" alt="OrthohantaDB Logo" />
             <h1>OrthohantaDB</h1>
         </div>
     </nav>
@@ -80,10 +80,17 @@
                         </div>
 
                         <!-- Two column layout for Species and Country -->
+                         <!-- <div class="filter-row">
+                            <label><strong>Search by Accession no.</strong></label>
+                            <input type="text" name="accession_no" placeholder="Ex: NC_005218" />
+                        </div> -->
+
+                        
                         <div style="display: flex; gap: 20px;">
                             <div class="filter-row" style="flex: 1;">
                                 <label><strong>Species</strong></label>
                                 <select name="species">
+                                    <!-- <input type="text" name="accession_no" placeholder="Ex: NC_005218" /> -->
                                     <option value="">All</option>
                                     <option value="Abrothrix longipilis">Abrothrix longipilis</option>
                                     <option value="Akodon montensis">Akodon montensis</option>
