@@ -1,275 +1,299 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virus Database Records</title>
-    <style>
-        /* General Styling */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Virus Database Records</title>
+  <style>
+    /*———————————————————————————————————————
+      Existing Filter + Table CSS
+    ———————————————————————————————————————*/
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f9f9f9;
+    }
+    .main-container {
+      display: flex;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 270px;
+      background: #fff;
+      padding: 20px;
+      border-right: 1px solid #ddd;
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    .sidebar h3 { margin-bottom:15px; font-size:18px; font-weight:bold; color:#333; }
+    .filter-item { margin-bottom:15px; }
+    .filter-item label { display:block; font-weight:bold; margin-bottom:5px; color:#555; }
+    .filter-item input {
+      width:90%; padding:10px;
+      border:1px solid #ccc; border-radius:5px; font-size:14px;
+    }
+    .content {
+      flex:1; padding:20px; min-width:800px; overflow:hidden;
+    }
+    .table-container {
+      position:relative; max-width:100%;
+      background:#fff; padding:15px; border-radius:8px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1); white-space:nowrap;
+    }
+    .table-scroll {
+      overflow-x:auto; overflow-y:hidden;
+      max-width:100%; border-bottom:2px solid #ddd;
+    }
+    table {
+      width:100%; border-collapse:collapse;
+      min-width:1200px; background:#fff;
+    }
+    th, td {
+      padding:10px; border:1px solid #ddd; text-align:left;
+    }
+    th { background:#007bff; color:#fff; }
+    tr:nth-child(even) { background:#f2f2f2; }
+    .pagination {
+      margin-top:10px; text-align:center;
+    }
+    .pagination a {
+      padding:8px 12px; margin:0 5px;
+      background:#007bff; color:#fff;
+      text-decoration:none; border-radius:5px;
+    }
+    .pagination a:hover { background:#0056b3; }
 
-        /* Main Layout */
-        .main-container {
-            display: flex;
-            min-height: 100vh;
-            overflow: hidden;
-        }
 
-        /* Sidebar Styling */
-        .sidebar {
-            width: 270px;
-            background-color: #ffffff;
-            padding: 20px;
-            border-right: 1px solid #ddd;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            flex-shrink: 0;
-            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
-        }
+    /*———————————————————————————————————————
+      NEW: Header / Banner CSS
+    ———————————————————————————————————————*/
+    .logo-nav {
+      background:#161939; color:#fff;
+      padding:1rem 5%;
+      display:flex; align-items:center;
+    }
+    .logo-nav img { height:40px; margin-right:10px; }
+    .logo-nav h1 { font-size:1.5rem; margin:0; }
+    .main-nav {
+      background:rgba(233,228,228,0.5);
+      padding:0.5rem 5%;
+      display:flex; justify-content:space-between; align-items:center;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
+      position:sticky; top:0; z-index:100;
+    }
+    .main-nav .nav-links a,
+    .main-nav .auth-links a {
+      margin-right:15px; text-decoration:none; color:#000;
+      font-weight:500; padding:0.5rem 1rem; border-radius:4px;
+      transition:background 0.3s;
+    }
+    .main-nav .nav-links a:hover,
+    .main-nav .auth-links a:hover { background:rgba(0,0,0,0.05); }
+    .main-nav .auth-links a.signup {
+      background:#b3a8a8; color:#131313;
+    }
+    .main-nav .auth-links a.signup:hover { background:#fff; }
+    .banner {
+      background: url("{% static 'bg.jpg' %}") center/cover no-repeat;
+      color:#fff; text-align:center;
+      padding:60px 20px;
+      position:relative;
+    }
+    .banner::before {
+      content:""; position:absolute; top:0; left:0; right:0; bottom:0;
+      background:rgba(0,0,0,0.5);
+    }
+    .banner h2 {
+      position:relative; font-size:2rem; margin:0;
+    }
 
-        .sidebar h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
 
-        .filter-item {
-            margin-bottom: 15px;
-        }
+    /*———————————————————————————————————————
+      NEW: Footer CSS
+    ———————————————————————————————————————*/
+    footer {
+      background:#161939; color:#fff;
+      padding:30px 5%; text-align:center;
+    }
+    footer h3 { color:#3498db; margin-bottom:10px; }
+    footer ul { list-style:none; padding:0; margin:0; }
+    footer ul li { margin-bottom:8px; }
+    footer ul li a {
+      color:#ccc; text-decoration:none;
+      transition:color 0.3s;
+    }
+    footer ul li a:hover { color:#fff; }
 
-        .filter-item label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        .filter-item input {
-            width: 90%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        /* Content Styling */
-        .content {
-            flex: 1;
-            padding: 20px;
-            min-width: 800px;
-            overflow: hidden;
-        }
-
-        /* Table Wrapper with Fixed Height and Scrollbar on Top */
-        .table-container {
-            position: relative;
-            max-width: 100%;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            white-space: nowrap;
-        }
-
-        /* Creating a Separate Scrollable Area Above the Table */
-        .table-scroll {
-            overflow-x: auto;
-            overflow-y: hidden;
-            max-width: 100%;
-            border-bottom: 2px solid #ddd;
-        }
-
-        /* The Actual Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 1200px;
-            background: white;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        /* Pagination Controls */
-        .pagination {
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .pagination a {
-            padding: 8px 12px;
-            margin: 0 5px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .pagination a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  </style>
 </head>
 <body>
 
-<div class="main-container">
-    <!-- Filters Sidebar -->
+  <!-- HEADER -->
+  <nav class="logo-nav">
+    <img src="{% static 'logo.jpg' %}" alt="OrthohantaDB Logo">
+    <h1>OrthohantaDB</h1>
+  </nav>
+  <nav class="main-nav">
+    <div class="nav-links">
+      <a href="{% url 'home' %}">Overview</a>
+      <a href="{% url 'filter' %}">Database</a>
+    </div>
+    <div class="auth-links">
+      <a href="#">Login</a>
+      <a href="#" class="signup">Sign Up</a>
+    </div>
+  </nav>
+  <div class="banner">
+    <h2>Genomic Archive of Orthohantavirus</h2>
+  </div>
+
+  <!-- MAIN FILTER + TABLE -->
+  <div class="main-container">
     <div class="sidebar">
-        <h3>Filters</h3>
-        
-        <div class="filter-item">
-            <label>Accession No.</label>
-            <input type="text" id="accessionFilter" placeholder="Enter accession(s)" onkeyup="filterTable()">
-        </div>
-
-        <div class="filter-item">
-            <label>Virus Name</label>
-            <input type="text" id="virusFilter" placeholder="Enter virus name" onkeyup="filterTable()">
-        </div>
-
-        <div class="filter-item">
-            <label>VRL</label>
-            <input type="text" id="vrlFilter" placeholder="Enter VRL" onkeyup="filterTable()">
-        </div>
-
-        <div class="filter-item">
-            <label>Species Name</label>
-            <input type="text" id="speciesFilter" placeholder="Enter species name" onkeyup="filterTable()">
-        </div>
-
-        <div class="filter-item">
-            <label>Sequence Length</label>
-            <input type="number" id="lengthFilter" placeholder="Enter length" onkeyup="filterTable()">
-        </div>
-
-        <div class="filter-item">
-            <label>Geographic Location</label>
-            <input type="text" id="geoFilter" placeholder="Enter location" onkeyup="filterTable()">
-        </div>
-
-        <div class="filter-item">
-            <label>Host</label>
-            <input type="text" id="hostFilter" placeholder="Enter host" onkeyup="filterTable()">
-        </div>
-
-        <div class="filter-item">
-            <label>Collection Date</label>
-            <input type="date" id="dateFilter" onchange="filterTable()">
-        </div>
+      <h3>Filters</h3>
+      <div class="filter-item">
+        <label>Accession No.</label>
+        <input type="text" id="accessionFilter" placeholder="Enter accession(s)" onkeyup="filterTable()">
+      </div>
+      <div class="filter-item">
+        <label>Virus Name</label>
+        <input type="text" id="virusFilter" placeholder="Enter virus name" onkeyup="filterTable()">
+      </div>
+      <div class="filter-item">
+        <label>VRL</label>
+        <input type="text" id="vrlFilter" placeholder="Enter VRL" onkeyup="filterTable()">
+      </div>
+      <div class="filter-item">
+        <label>Species Name</label>
+        <input type="text" id="speciesFilter" placeholder="Enter species name" onkeyup="filterTable()">
+      </div>
+      <div class="filter-item">
+        <label>Sequence Length</label>
+        <input type="number" id="lengthFilter" placeholder="Enter length" onkeyup="filterTable()">
+      </div>
+      <div class="filter-item">
+        <label>Geographic Location</label>
+        <input type="text" id="geoFilter" placeholder="Enter location" onkeyup="filterTable()">
+      </div>
+      <div class="filter-item">
+        <label>Host</label>
+        <input type="text" id="hostFilter" placeholder="Enter host" onkeyup="filterTable()">
+      </div>
+      <div class="filter-item">
+        <label>Collection Date</label>
+        <input type="date" id="dateFilter" onchange="filterTable()">
+      </div>
     </div>
 
-    <!-- Main Content -->
     <div class="content">
-        <h2>Virus Database Records</h2>
+      <h2>Virus Database Records</h2>
 
-        <!-- Horizontal Scrollbar at the Top -->
-  <div class="table-scroll">
-    <div class="table-container">
-      <table id="virusTable">
-        <thead>
-          <tr>
-            <th>Accession No</th>
-            <th>Organism Name</th>
-            <th>VRL</th>
-            <th>Isolate</th>
-            <th>Species</th>
-            <th>Length</th>
-            <th>Geo Location</th>
-            <th>Host</th>
-            <th>Collection Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for record in records %}
-          <tr>
-            <td>
-              <a
-                href="https://www.ncbi.nlm.nih.gov/protein/{{ record.accession_no }}/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {{ record.accession_no }}
-              </a>
-            </td>
-            <td>{{ record.organism_name }}</td>
-            <td>{{ record.vrl }}</td>
-            <td>{{ record.isolate }}</td>
-            <td>{{ record.species }}</td>
-            <td>{{ record.length }}</td>
-            <td>{{ record.geo_location }}</td>
-            <td>{{ record.host }}</td>
-            <td>{{ record.collection_date }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <!-- table scroll -->
+      <div class="table-scroll">
+        <div class="table-container">
+          <table id="virusTable">
+            <thead>
+              <tr>
+                <th>Accession No</th>
+                <th>Organism Name</th>
+                <th>VRL</th>
+                <th>Isolate</th>
+                <th>Species</th>
+                <th>Length</th>
+                <th>Geo Location</th>
+                <th>Host</th>
+                <th>Collection Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in records %}
+              <tr>
+                <td>
+                  <a href="https://www.ncbi.nlm.nih.gov/protein/{{ record.accession_no }}/"
+                     target="_blank" rel="noopener">
+                    {{ record.accession_no }}
+                  </a>
+                </td>
+                <td>{{ record.organism_name }}</td>
+                <td>{{ record.vrl }}</td>
+                <td>{{ record.isolate }}</td>
+                <td>{{ record.species }}</td>
+                <td>{{ record.length }}</td>
+                <td>{{ record.geo_location }}</td>
+                <td>{{ record.host }}</td>
+                <td>{{ record.collection_date }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- pagination -->
+      <div class="pagination">
+        {% if records.has_previous %}
+          <a href="?page=1">First</a>
+          <a href="?page={{ records.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ records.number }} of {{ records.paginator.num_pages }}</span>
+        {% if records.has_next %}
+          <a href="?page={{ records.next_page_number }}">Next</a>
+          <a href="?page={{ records.paginator.num_pages }}">Last</a>
+        {% endif %}
+      </div>
     </div>
   </div>
 
-        <!-- Pagination Controls -->
-        <div class="pagination">
-            {% if records.has_previous %}
-                <a href="?page=1">First</a>
-                <a href="?page={{ records.previous_page_number }}">Previous</a>
-            {% endif %}
-
-            <span>Page {{ records.number }} of {{ records.paginator.num_pages }}</span>
-
-            {% if records.has_next %}
-                <a href="?page={{ records.next_page_number }}">Next</a>
-                <a href="?page={{ records.paginator.num_pages }}">Last</a>
-            {% endif %}
-        </div>
+  <!-- FOOTER -->
+  <footer>
+    <div style="display:flex; justify-content:space-around; flex-wrap:wrap;">
+      <div>
+        <h3>Getting Started</h3>
+        <ul>
+          <li><a href="#">NCBI Education</a></li>
+          <li><a href="#">NCBI Handbook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Chemicals</a></li>
+          <li><a href="#">Genomes</a></li>
+        </ul>
+      </div>
     </div>
-</div>
+  </footer>
 
-<!-- JavaScript for Filters -->
-<script>
+  <!-- FILTER JS (unchanged) -->
+  <script>
     function filterTable() {
-        let accession = document.getElementById("accessionFilter").value.toLowerCase();
-        let virus = document.getElementById("virusFilter").value.toLowerCase();
-        let vrl = document.getElementById("vrlFilter").value.toLowerCase();
-        let species = document.getElementById("speciesFilter").value.toLowerCase();
-        let length = document.getElementById("lengthFilter").value;
-        let geo = document.getElementById("geoFilter").value.toLowerCase();
-        let host = document.getElementById("hostFilter").value.toLowerCase();
-        let date = document.getElementById("dateFilter").value;
+      let accession = document.getElementById("accessionFilter").value.toLowerCase();
+      let virus     = document.getElementById("virusFilter").value.toLowerCase();
+      let vrl       = document.getElementById("vrlFilter").value.toLowerCase();
+      let species   = document.getElementById("speciesFilter").value.toLowerCase();
+      let length    = document.getElementById("lengthFilter").value;
+      let geo       = document.getElementById("geoFilter").value.toLowerCase();
+      let host      = document.getElementById("hostFilter").value.toLowerCase();
+      let date      = document.getElementById("dateFilter").value;
+      let rows      = document.querySelectorAll("#virusTable tr");
 
-        let table = document.getElementById("virusTable");
-        let rows = table.getElementsByTagName("tr");
-
-        for (let i = 1; i < rows.length; i++) {
-            let cells = rows[i].getElementsByTagName("td");
-            let text = [...cells].map(cell => cell.textContent.toLowerCase());
-
-            rows[i].style.display = 
-                (text[0].includes(accession) && text[1].includes(virus) && text[2].includes(vrl) &&
-                text[4].includes(species) && text[5].includes(length) &&
-                text[6].includes(geo) && text[7].includes(host) && text[8].includes(date))
-                ? "" : "none";
-        }
+      for (let i=1; i<rows.length; i++) {
+        let cells = [...rows[i].cells].map(td=>td.textContent.toLowerCase());
+        let show = cells[0].includes(accession)
+                && cells[1].includes(virus)
+                && cells[2].includes(vrl)
+                && cells[4].includes(species)
+                && (length === "" || cells[5]===length)
+                && cells[6].includes(geo)
+                && cells[7].includes(host)
+                && cells[8].includes(date);
+        rows[i].style.display = show ? "" : "none";
+      }
     }
-</script>
+  </script>
 
 </body>
 </html>

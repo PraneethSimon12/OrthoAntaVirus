@@ -150,7 +150,7 @@ def upload_excel(request):
     records = records.order_by('id')
 
     # Paginate (50 per page)
-    paginator = Paginator(records, 50)
+    paginator = Paginator(records, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

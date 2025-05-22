@@ -20,8 +20,8 @@
     <!-- Main Navigation Bar -->
     <nav class="main-nav">
         <div class="nav-links">
-            <a href="">Overview</a>
-            <a href="">Database</a>
+            <a href="{% url 'home' %}">Overview</a>
+            <a href="{% url 'filter' %}">Database</a>
         </div>
         <div class="auth-links">
             {% if user.is_authenticated %}
